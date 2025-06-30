@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef, useCallback } from "react"
+import { useState, useEffect, useRef } from "react"
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -13,11 +13,10 @@ const Navbar = () => {
       const scrollTop = window.scrollY
       const docHeight = document.documentElement.scrollHeight - window.innerHeight
       const progress = (scrollTop / docHeight) * 100
-      
+
       setScrolled(scrollTop > 20)
       setScrollProgress(progress)
 
-      // Update active section based on scroll position
       const sections = ["home", "about", "education", "projects", "stats", "contact"]
       const current = sections.find((section) => {
         const element = document.getElementById(section)
@@ -36,96 +35,87 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Scroll Progress Bar */}
-      <div className="fixed top-0 left-0 w-full h-1 bg-slate-900/20 z-50">
-        <div 
-          className="h-full bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-400 transition-all duration-300 ease-out"
+      {/* Modern Progress Bar */}
+      <div className="fixed top-0 left-0 w-full h-1 bg-gradient-to-r from-slate-200/20 to-slate-300/20 z-50 backdrop-blur-sm">
+        <div
+          className="h-full bg-gradient-to-r from-violet-500 via-purple-500 to-pink-500 transition-all duration-500 ease-out relative overflow-hidden"
           style={{ width: `${scrollProgress}%` }}
-        />
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-white/30 to-transparent animate-pulse"></div>
+        </div>
       </div>
 
       <nav
-        className={`fixed top-0 w-full backdrop-blur-2xl bg-slate-900/10 border-b border-white/5 text-white p-3 sm:p-4 z-40 transition-all duration-700 ${
-          scrolled 
-            ? "shadow-2xl shadow-slate-900/10 bg-slate-900/20 backdrop-blur-3xl border-white/10" 
-            : ""
+        className={`fixed top-0 w-full backdrop-blur-xl bg-white/80 dark:bg-slate-900/80 border-b border-slate-200/50 dark:border-slate-700/50 text-slate-800 dark:text-white p-4 z-40 transition-all duration-700 ${
+          scrolled ? "shadow-xl shadow-slate-900/10 bg-white/90 dark:bg-slate-900/90" : ""
         }`}
-        style={{
-          backdropFilter: scrolled ? 'blur(40px) saturate(180%)' : 'blur(20px) saturate(150%)',
-        }}
       >
         <div className="container mx-auto flex justify-between items-center">
           <div className="relative group">
-            <h1 className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-emerald-300 via-cyan-300 to-blue-300 bg-clip-text text-transparent">
-              Muralikarthick's Portfolio
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-violet-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+              Muralikarthick
             </h1>
-            <div className="absolute -inset-2 bg-gradient-to-r from-emerald-500/10 to-blue-500/10 rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+            <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-violet-500 to-pink-500 group-hover:w-full transition-all duration-500"></div>
           </div>
 
-          <button 
-            className="md:hidden focus:outline-none relative z-10 group p-2 rounded-xl backdrop-blur-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300" 
+          <button
+            className="md:hidden focus:outline-none relative z-10 group p-2 rounded-xl bg-gradient-to-r from-violet-500/10 to-pink-500/10 border border-violet-200/50 hover:from-violet-500/20 hover:to-pink-500/20 transition-all duration-300"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
             <div className="relative">
               <div
-                className={`w-5 h-0.5 bg-slate-300 transition-all duration-300 mb-1 ${
-                  isMenuOpen ? "rotate-45 translate-y-1.5" : ""
+                className={`w-6 h-0.5 bg-slate-700 dark:bg-slate-300 transition-all duration-300 mb-1.5 ${
+                  isMenuOpen ? "rotate-45 translate-y-2" : ""
                 }`}
               ></div>
               <div
-                className={`w-5 h-0.5 bg-slate-300 transition-all duration-300 mb-1 ${
+                className={`w-6 h-0.5 bg-slate-700 dark:bg-slate-300 transition-all duration-300 mb-1.5 ${
                   isMenuOpen ? "opacity-0" : ""
                 }`}
               ></div>
               <div
-                className={`w-5 h-0.5 bg-slate-300 transition-all duration-300 ${
-                  isMenuOpen ? "-rotate-45 -translate-y-1.5" : ""
+                className={`w-6 h-0.5 bg-slate-700 dark:bg-slate-300 transition-all duration-300 ${
+                  isMenuOpen ? "-rotate-45 -translate-y-2" : ""
                 }`}
               ></div>
             </div>
           </button>
 
           <ul
-            className={`fixed md:relative top-[56px] sm:top-[64px] md:top-auto left-0 right-0 md:flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 lg:space-x-6 p-4 md:p-0 ${
-              isMenuOpen ? "flex animate-fadeIn" : "hidden md:flex"
-            } transition-all duration-700 border-b border-white/10 md:border-none rounded-b-2xl md:rounded-none bg-gradient-to-b from-slate-900/90 to-slate-800/90 md:bg-transparent backdrop-blur-3xl md:backdrop-blur-none z-30`}
-            style={{
-              backdropFilter: 'blur(40px) saturate(180%)',
-              maxHeight: isMenuOpen ? '80vh' : 'none',
-              overflowY: isMenuOpen ? 'auto' : 'visible',
-            }}
+            className={`fixed md:relative top-[73px] md:top-auto left-0 right-0 md:flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-8 p-6 md:p-0 ${
+              isMenuOpen ? "flex animate-slideDown" : "hidden md:flex"
+            } transition-all duration-500 border-b border-slate-200/50 dark:border-slate-700/50 md:border-none rounded-b-2xl md:rounded-none bg-white/95 dark:bg-slate-900/95 md:bg-transparent backdrop-blur-xl md:backdrop-blur-none z-30`}
           >
             {["Home", "About", "Education", "Projects", "Stats", "Contact"].map((item) => (
               <li key={item} className="relative group">
                 <a
                   href={`#${item.toLowerCase()}`}
-                  className={`block hover:text-transparent hover:bg-gradient-to-r hover:from-emerald-300 hover:to-cyan-300 hover:bg-clip-text transition-all duration-500 py-3 md:py-2 px-4 md:px-0 relative rounded-xl md:rounded-none touch-manipulation ${
+                  className={`block py-3 md:py-2 px-4 md:px-0 relative rounded-xl md:rounded-none transition-all duration-500 ${
                     activeSection === item.toLowerCase()
-                      ? "text-transparent bg-gradient-to-r from-emerald-300 to-cyan-300 bg-clip-text"
-                      : "text-slate-200"
+                      ? "text-transparent bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text font-semibold"
+                      : "text-slate-700 dark:text-slate-300 hover:text-transparent hover:bg-gradient-to-r hover:from-violet-600 hover:to-pink-600 hover:bg-clip-text"
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item}
                   <div
-                    className={`absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-emerald-400 to-cyan-400 transition-all duration-500 ${
+                    className={`absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-violet-500 to-pink-500 transition-all duration-500 ${
                       activeSection === item.toLowerCase() ? "scale-x-100" : "scale-x-0"
                     }`}
                   ></div>
-                  {/* Hover background for mobile */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 to-cyan-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 md:hidden"></div>
                 </a>
               </li>
             ))}
+
             <li className="relative group">
               <a
                 href="https://drive.google.com/uc?export=download&id=1kDxWWWKYg-EZKJsyMjV5fWqS1YA9hiWP"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center relative overflow-hidden px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-emerald-500/80 to-cyan-500/80 rounded-xl sm:rounded-2xl hover:from-emerald-400 hover:to-cyan-400 transition-all duration-500 transform hover:scale-105 backdrop-blur-xl border border-emerald-500/20 hover:border-emerald-400/40 text-sm sm:text-base touch-manipulation"
+                className="flex items-center justify-center relative overflow-hidden px-6 py-3 bg-gradient-to-r from-violet-500 to-pink-500 rounded-xl text-white font-medium transition-all duration-500 transform hover:scale-105 hover:shadow-xl hover:shadow-violet-500/25"
               >
-                <svg className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -133,9 +123,8 @@ const Navbar = () => {
                     d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H3a2 2 0 01-2-2V3a2 2 0 012-2h18a2 2 0 012 2v16a2 2 0 01-2 2z"
                   />
                 </svg>
-                <span className="hidden xs:inline">Resume</span>
-                <span className="xs:hidden">CV</span>
-                <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                Resume
+                <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
               </a>
             </li>
           </ul>
@@ -145,7 +134,8 @@ const Navbar = () => {
   )
 }
 
-const FloatingParticles = () => {
+// Optimized Modern Particles
+const ModernParticles = () => {
   const canvasRef = useRef(null)
 
   useEffect(() => {
@@ -162,22 +152,19 @@ const FloatingParticles = () => {
     window.addEventListener("resize", resizeCanvas)
 
     const particles = []
-    const particleCount = Math.min(
-      window.innerWidth < 768 ? 80 : 150, 
-      Math.floor(window.innerWidth / (window.innerWidth < 768 ? 16 : 8))
-    )
+    // Optimized particle count
+    const particleCount = window.innerWidth < 768 ? 12 : 20
 
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        size: Math.random() * 4 + 2,
-        speedX: (Math.random() - 0.5) * 2,
-        speedY: (Math.random() - 0.5) * 2,
-        hue: Math.random() * 80 + 140,
-        alpha: Math.random() * 0.8 + 0.3,
+        size: Math.random() * 3 + 1,
+        speedX: (Math.random() - 0.5) * 0.8,
+        speedY: (Math.random() - 0.5) * 0.8,
+        hue: Math.random() * 60 + 260, // Purple to pink range
+        alpha: Math.random() * 0.6 + 0.2,
         pulse: Math.random() * Math.PI * 2,
-        type: Math.random() > 0.7 ? 'star' : 'circle',
       })
     }
 
@@ -187,95 +174,47 @@ const FloatingParticles = () => {
       particles.forEach((particle, index) => {
         particle.x += particle.speedX
         particle.y += particle.speedY
-        particle.pulse += 0.03
+        particle.pulse += 0.02
 
         if (particle.x < 0 || particle.x > canvas.width) particle.speedX *= -1
         if (particle.y < 0 || particle.y > canvas.height) particle.speedY *= -1
 
-        particle.hue += 0.5
-        particle.alpha = 0.6 + Math.sin(particle.pulse) * 0.4
+        particle.hue += 0.2
+        particle.alpha = 0.4 + Math.sin(particle.pulse) * 0.2
 
-        // Enhanced particle rendering with multiple effects
         ctx.save()
         ctx.globalAlpha = particle.alpha
 
-        if (particle.type === 'star') {
-          // Draw star particles
-          const spikes = 5
-          const outerRadius = particle.size * 2
-          const innerRadius = particle.size
-          
-          ctx.beginPath()
-          for (let i = 0; i < spikes * 2; i++) {
-            const radius = i % 2 === 0 ? outerRadius : innerRadius
-            const angle = (i * Math.PI) / spikes
-            const x = particle.x + Math.cos(angle) * radius
-            const y = particle.y + Math.sin(angle) * radius
-            if (i === 0) ctx.moveTo(x, y)
-            else ctx.lineTo(x, y)
-          }
-          ctx.closePath()
-          
-          const starGradient = ctx.createRadialGradient(
-            particle.x, particle.y, 0,
-            particle.x, particle.y, outerRadius
-          )
-          starGradient.addColorStop(0, `hsl(${particle.hue}, 90%, 80%)`)
-          starGradient.addColorStop(0.5, `hsl(${particle.hue}, 80%, 60%)`)
-          starGradient.addColorStop(1, 'transparent')
-          
-          ctx.fillStyle = starGradient
-          ctx.fill()
-        } else {
-          // Enhanced circle particles with multiple glow layers
-          for (let layer = 0; layer < 3; layer++) {
-            ctx.beginPath()
-            ctx.arc(particle.x, particle.y, particle.size * (layer + 1), 0, Math.PI * 2)
-            
-            const gradient = ctx.createRadialGradient(
-              particle.x, particle.y, 0,
-              particle.x, particle.y, particle.size * (layer + 1) * 2
-            )
-            gradient.addColorStop(0, `hsl(${particle.hue}, 90%, ${80 - layer * 20}%)`)
-            gradient.addColorStop(0.3, `hsl(${particle.hue}, 80%, ${60 - layer * 15}%)`)
-            gradient.addColorStop(1, 'transparent')
-            
-            ctx.globalAlpha = particle.alpha / (layer + 1)
-            ctx.fillStyle = gradient
-            ctx.fill()
-          }
-        }
-        
+        // Modern gradient particles
+        const gradient = ctx.createRadialGradient(
+          particle.x,
+          particle.y,
+          0,
+          particle.x,
+          particle.y,
+          particle.size * 3,
+        )
+        gradient.addColorStop(0, `hsl(${particle.hue}, 70%, 60%)`)
+        gradient.addColorStop(0.5, `hsl(${particle.hue}, 60%, 50%)`)
+        gradient.addColorStop(1, "transparent")
+
+        ctx.beginPath()
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
+        ctx.fillStyle = gradient
+        ctx.fill()
+
         ctx.restore()
 
-        // Enhanced connection lines with animated flow
+        // Subtle connections
         particles.slice(index + 1).forEach((otherParticle) => {
           const dx = particle.x - otherParticle.x
           const dy = particle.y - otherParticle.y
           const distance = Math.sqrt(dx * dx + dy * dy)
-
-          if (distance < 200) {
+          if (distance < 150) {
             ctx.save()
-            const opacity = (200 - distance) / 200 * 0.3
-            ctx.globalAlpha = opacity
-            
-            // Animated flowing gradient
-            const lineGradient = ctx.createLinearGradient(
-              particle.x, particle.y, 
-              otherParticle.x, otherParticle.y
-            )
-            const hue1 = particle.hue + Math.sin(Date.now() * 0.001) * 30
-            const hue2 = otherParticle.hue + Math.cos(Date.now() * 0.001) * 30
-            
-            lineGradient.addColorStop(0, `hsl(${hue1}, 80%, 70%)`)
-            lineGradient.addColorStop(0.5, `hsl(${(hue1 + hue2) / 2}, 90%, 80%)`)
-            lineGradient.addColorStop(1, `hsl(${hue2}, 80%, 70%)`)
-            
-            ctx.strokeStyle = lineGradient
-            ctx.lineWidth = 2
-            ctx.shadowBlur = 10
-            ctx.shadowColor = `hsl(${(hue1 + hue2) / 2}, 80%, 60%)`
-            
+            ctx.globalAlpha = ((150 - distance) / 150) * 0.15
+            ctx.strokeStyle = `hsl(${(particle.hue + otherParticle.hue) / 2}, 60%, 50%)`
+            ctx.lineWidth = 1
             ctx.beginPath()
             ctx.moveTo(particle.x, particle.y)
             ctx.lineTo(otherParticle.x, otherParticle.y)
@@ -296,22 +235,39 @@ const FloatingParticles = () => {
     }
   }, [])
 
-  return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-0 opacity-90" />
+  return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-0 opacity-50" />
 }
 
-// Enhanced Loading Component with matte finish
-const LoadingSpinner = () => (
-  <div className="flex items-center justify-center">
+// Modern Loading Component
+const ModernLoadingSpinner = () => (
+  <div className="flex flex-col items-center justify-center space-y-6">
     <div className="relative">
-      <div className="w-16 h-16 border-4 border-emerald-200/20 rounded-full backdrop-blur-xl"></div>
-      <div className="absolute top-0 left-0 w-16 h-16 border-4 border-transparent border-t-emerald-400 rounded-full animate-spin"></div>
-      <div className="absolute top-2 left-2 w-12 h-12 border-4 border-transparent border-t-cyan-400 rounded-full animate-spin animation-delay-150"></div>
-      <div className="absolute top-4 left-4 w-8 h-8 border-4 border-transparent border-t-blue-400 rounded-full animate-spin animation-delay-300"></div>
+      <div className="w-24 h-24 border-4 border-slate-200/30 rounded-full"></div>
+      <div className="absolute top-0 left-0 w-24 h-24 border-4 border-transparent border-t-violet-500 rounded-full animate-spin"></div>
+      <div
+        className="absolute top-2 left-2 w-20 h-20 border-4 border-transparent border-t-pink-500 rounded-full animate-spin"
+        style={{ animationDirection: "reverse", animationDuration: "1.5s" }}
+      ></div>
+      <div className="absolute top-4 left-4 w-16 h-16 border-4 border-transparent border-t-purple-500 rounded-full animate-spin"></div>
+    </div>
+    <div className="text-center">
+      <h3 className="text-xl font-semibold bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent mb-2">
+        Loading Portfolio
+      </h3>
+      <div className="flex space-x-1">
+        {[...Array(3)].map((_, i) => (
+          <div
+            key={i}
+            className="w-2 h-2 bg-gradient-to-r from-violet-500 to-pink-500 rounded-full animate-bounce"
+            style={{ animationDelay: `${i * 0.2}s` }}
+          ></div>
+        ))}
+      </div>
     </div>
   </div>
 )
 
-// Enhanced Reveal Animation Hook with intersection observer
+// Enhanced Reveal Animation Hook
 const useRevealOnScroll = (threshold = 0.1) => {
   const [isVisible, setIsVisible] = useState(false)
   const ref = useRef()
@@ -324,7 +280,7 @@ const useRevealOnScroll = (threshold = 0.1) => {
           observer.disconnect()
         }
       },
-      { threshold, rootMargin: '50px' }
+      { threshold, rootMargin: "50px" },
     )
 
     if (ref.current) {
@@ -337,241 +293,214 @@ const useRevealOnScroll = (threshold = 0.1) => {
   return [ref, isVisible]
 }
 
-// Enhanced Glass Card Component with more dramatic effects and better responsiveness
-const GlassCard = ({ children, className = "", hover = true, glow = false, ...props }) => (
+// Modern Glass Card Component
+const ModernCard = ({ children, className = "", hover = true, gradient = false, ...props }) => (
   <div
-    className={`w-full backdrop-blur-3xl bg-gradient-to-br from-white/15 to-white/5 border border-white/20 rounded-2xl md:rounded-3xl transition-all duration-700 relative overflow-hidden ${
-      hover ? 'hover:bg-gradient-to-br hover:from-white/20 hover:to-white/8 hover:border-white/30 hover:shadow-2xl hover:shadow-emerald-500/20 hover:scale-[1.02] active:scale-[0.98]' : ''
-    } ${glow ? 'shadow-2xl shadow-emerald-500/25' : ''} ${className}`}
-    style={{
-      backdropFilter: 'blur(60px) saturate(200%)',
-      background: 'linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 50%, rgba(16,185,129,0.05) 100%)',
-    }}
+    className={`backdrop-blur-xl bg-white/70 dark:bg-slate-800/70 border border-white/20 dark:border-slate-700/50 rounded-2xl transition-all duration-500 relative overflow-hidden ${
+      hover
+        ? "hover:bg-white/80 dark:hover:bg-slate-800/80 hover:border-white/30 dark:hover:border-slate-700/70 hover:shadow-2xl hover:shadow-slate-900/10 hover:scale-[1.02] hover:-translate-y-1"
+        : ""
+    } ${gradient ? "bg-gradient-to-br from-white/80 to-slate-50/80 dark:from-slate-800/80 dark:to-slate-900/80" : ""} ${className}`}
     {...props}
   >
-    {/* Animated border gradient */}
-    <div className="absolute inset-0 rounded-2xl md:rounded-3xl opacity-0 hover:opacity-100 transition-opacity duration-700">
-      <div className="absolute inset-[1px] rounded-2xl md:rounded-3xl bg-gradient-to-r from-emerald-400/20 via-cyan-400/20 to-blue-400/20 animate-pulse"></div>
-    </div>
-    
     {/* Shimmer effect */}
-    <div className="absolute inset-0 rounded-2xl md:rounded-3xl overflow-hidden">
-      <div className="absolute -inset-[100%] bg-gradient-to-r from-transparent via-white/10 to-transparent rotate-45 translate-x-[-200%] hover:translate-x-[200%] transition-transform duration-1000"></div>
+    <div className="absolute inset-0 rounded-2xl overflow-hidden">
+      <div className="absolute -inset-[100%] bg-gradient-to-r from-transparent via-white/20 to-transparent rotate-45 translate-x-[-200%] hover:translate-x-[200%] transition-transform duration-1000"></div>
     </div>
-    
-    <div className="relative z-10">
-      {children}
-    </div>
+
+    <div className="relative z-10">{children}</div>
   </div>
+)
+
+// Floating Action Button
+const FloatingActionButton = ({ onClick, icon, label }) => (
+  <button
+    onClick={onClick}
+    className="fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-violet-500 to-pink-500 rounded-full shadow-xl shadow-violet-500/25 hover:shadow-2xl hover:shadow-violet-500/40 transition-all duration-300 transform hover:scale-110 z-40 group"
+    aria-label={label}
+  >
+    <div className="flex items-center justify-center text-white text-xl">{icon}</div>
+    <span className="absolute right-16 top-1/2 transform -translate-y-1/2 bg-slate-900 text-white text-sm px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+      {label}
+    </span>
+  </button>
 )
 
 const Home = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [typedText, setTypedText] = useState("")
   const [isTyping, setIsTyping] = useState(true)
-  const [isMobile, setIsMobile] = useState(false) // <-- ADD THIS LINE
+  const [currentRole, setCurrentRole] = useState(0)
 
-  const fullText = "Full-Stack Developer & IT Student"
+  const roles = [
+    "Full-Stack Developer",
+    "Problem Solver",
+    "Tech Enthusiast",
+    "Innovation Creator",
+  ]
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768) // <-- SET isMobile BASED ON SCREEN WIDTH
-    }
-    checkMobile()
     const handleMouseMove = (e) => {
-      if (!isMobile) {
+      if (window.innerWidth >= 768) {
         setMousePosition({ x: e.clientX, y: e.clientY })
       }
     }
-    const handleResize = () => {
-      checkMobile()
-    }
-    window.addEventListener("mousemove", handleMouseMove)
-    window.addEventListener("resize", handleResize)
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove)
-      window.removeEventListener("resize", handleResize)
-    }
-  }, [isMobile])
 
-  // Enhanced typewriter effect
+    window.addEventListener("mousemove", handleMouseMove)
+    return () => window.removeEventListener("mousemove", handleMouseMove)
+  }, [])
+
+  // Enhanced typewriter effect with role cycling
   useEffect(() => {
     let i = 0
+    const currentText = roles[currentRole]
+    
     const timer = setInterval(() => {
-      if (i < fullText.length) {
-        setTypedText(fullText.slice(0, i + 1))
+      if (i < currentText.length) {
+        setTypedText(currentText.slice(0, i + 1))
         i++
       } else {
         setIsTyping(false)
-        clearInterval(timer)
+        setTimeout(() => {
+          setIsTyping(true)
+          setCurrentRole((prev) => (prev + 1) % roles.length)
+          setTypedText("")
+          i = 0
+        }, 2000)
       }
-    }, 80)
+    }, 100)
 
     return () => clearInterval(timer)
-  }, [])
+  }, [currentRole])
+
+  const scrollToSection = (sectionId) => {
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" })
+  }
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16 sm:pt-20">
-      {/* Enhanced background with multiple animated layers */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-900">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-emerald-900/40 via-transparent to-transparent animate-pulse"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-cyan-900/30 via-transparent to-transparent"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-blue-900/30 via-transparent to-transparent"></div>
-        
-        {/* Animated mesh gradient overlay */}
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 animate-pulse"></div>
-          <div className="absolute inset-0 bg-gradient-to-l from-blue-500/20 to-purple-500/20 animate-pulse" style={{animationDelay: '1s'}}></div>
-        </div>
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+      {/* Modern gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-violet-50 dark:from-slate-900 dark:via-slate-800 dark:to-violet-900">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-violet-200/40 via-transparent to-transparent dark:from-violet-900/40"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-pink-200/40 via-transparent to-transparent dark:from-pink-900/40"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-200/20 via-transparent to-transparent dark:from-purple-900/20"></div>
       </div>
 
-      {/* Enhanced floating geometric patterns */}
+      {/* Floating geometric shapes */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(40)].map((_, i) => (
+        {[...Array(15)].map((_, i) => (
           <div
             key={i}
-            className="absolute animate-float opacity-30"
+            className="absolute animate-float opacity-20 dark:opacity-10"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 8}s`,
-              animationDuration: `${10 + Math.random() * 8}s`,
+              animationDelay: `${Math.random() * 10}s`,
+              animationDuration: `${15 + Math.random() * 10}s`,
             }}
           >
             <div
-              className="backdrop-blur-sm border-2 border-white/20 transform rotate-45 shadow-xl shadow-emerald-500/20"
+              className="rounded-full bg-gradient-to-br from-violet-400/30 to-pink-400/30 backdrop-blur-sm"
               style={{
                 width: `${20 + Math.random() * 40}px`,
                 height: `${20 + Math.random() * 40}px`,
-                background: `linear-gradient(45deg, hsl(${160 + Math.random() * 60}, 80%, 60%, 0.3), transparent)`,
-                borderRadius: Math.random() > 0.5 ? "50%" : "25%",
-                filter: "blur(0.5px)",
-                boxShadow: `0 0 20px hsl(${160 + Math.random() * 60}, 80%, 60%, 0.5)`,
               }}
             ></div>
           </div>
         ))}
       </div>
 
-      {/* Enhanced mouse follower with dramatic effects - only on desktop */}
-      {!isMobile && (
+      {/* Mouse follower effect - desktop only */}
+      {window.innerWidth >= 768 && (
         <div
-          className="fixed pointer-events-none z-10 transition-all duration-500 ease-out hidden md:block"
+          className="fixed pointer-events-none z-10 transition-all duration-300 ease-out hidden md:block"
           style={{
-            left: mousePosition.x - 400,
-            top: mousePosition.y - 400,
-            width: "800px",
-            height: "800px",
+            left: mousePosition.x - 300,
+            top: mousePosition.y - 300,
+            width: "600px",
+            height: "600px",
           }}
         >
           <div
-            className="absolute inset-0 rounded-full opacity-40"
+            className="absolute inset-0 rounded-full opacity-20"
             style={{
-              background: "radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, rgba(6, 182, 212, 0.1) 30%, rgba(59, 130, 246, 0.05) 60%, transparent 100%)",
-              transform: `scale(${1 + Math.sin(Date.now() * 0.002) * 0.2})`,
-              filter: 'blur(3px)',
-            }}
-          ></div>
-          <div
-            className="absolute inset-20 rounded-full opacity-60"
-            style={{
-              background: "radial-gradient(circle, rgba(52, 211, 153, 0.2) 0%, rgba(34, 197, 94, 0.1) 50%, transparent 80%)",
-              transform: `scale(${1 + Math.sin(Date.now() * 0.003) * 0.3})`,
-              filter: 'blur(2px)',
-            }}
-          ></div>
-          <div
-            className="absolute inset-40 rounded-full opacity-80"
-            style={{
-              background: "radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, transparent 70%)",
-              transform: `scale(${1 + Math.sin(Date.now() * 0.004) * 0.4})`,
-              filter: 'blur(1px)',
+              background:
+                "radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, rgba(219, 39, 119, 0.05) 50%, transparent 70%)",
+              transform: `scale(${1 + Math.sin(Date.now() * 0.002) * 0.1})`,
             }}
           ></div>
         </div>
       )}
 
-      <div className="text-center relative z-20 px-4 max-w-7xl mx-auto w-full mt-8 sm:mt-0">
-        {/* Enhanced profile section with dramatic glow */}
-        <div className="mb-6 sm:mb-8 md:mb-12 relative">
-          <div className="w-28 h-28 xs:w-32 xs:h-32 sm:w-40 sm:h-40 md:w-44 md:h-44 mx-auto mb-4 xs:mb-6 sm:mb-8 md:mb-10 relative group">
-            {/* Multiple rotating rings */}
-            <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 rounded-full animate-spin-slow"></div>
-            <div className="absolute inset-1 bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-400 rounded-full animate-spin-slow" style={{animationDirection: 'reverse', animationDuration: '12s'}}></div>
-            <div className="absolute inset-2 backdrop-blur-3xl bg-gradient-to-br from-slate-800/90 to-slate-900/90 rounded-full flex items-center justify-center border-2 border-white/30 shadow-2xl shadow-emerald-500/50">
-              <span className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl animate-pulse">👨‍💻</span>
+      <div className="text-center relative z-20 px-4 max-w-6xl mx-auto w-full">
+        {/* Profile section */}
+        <div className="mb-12">
+          <div className="w-40 h-40 sm:w-48 sm:h-48 mx-auto mb-8 relative group">
+            {/* Modern profile ring */}
+            <div className="absolute inset-0 bg-gradient-to-r from-violet-500 via-purple-500 to-pink-500 rounded-full animate-spin-slow p-1">
+              <div className="w-full h-full bg-white dark:bg-slate-900 rounded-full flex items-center justify-center">
+                <div className="text-6xl sm:text-7xl">👨‍💻</div>
+              </div>
             </div>
-            
-            {/* Enhanced glow effects */}
-            <div className="absolute -inset-8 bg-gradient-to-r from-emerald-400/30 to-cyan-500/30 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-pulse"></div>
-            <div className="absolute -inset-12 bg-gradient-to-r from-cyan-400/20 to-blue-500/20 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000 animate-pulse" style={{animationDelay: '0.5s'}}></div>
-            
-            {/* Enhanced floating elements - fewer on mobile */}
-            {[...Array(isMobile ? 4 : 8)].map((_, i) => (
+
+            {/* Floating indicators */}
+            {[...Array(8)].map((_, i) => (
               <div
                 key={i}
-                className="absolute w-1.5 h-1.5 xs:w-2 xs:h-2 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3 bg-gradient-to-r from-emerald-400 to-cyan-400 rounded-full opacity-80 animate-ping shadow-lg shadow-emerald-400/50"
+                className="absolute w-3 h-3 bg-gradient-to-r from-violet-400 to-pink-400 rounded-full opacity-70 animate-ping"
                 style={{
-                  top: `${30 + Math.sin((i * Math.PI) / 4) * 70}%`,
-                  left: `${50 + Math.cos((i * Math.PI) / 4) * 70}%`,
+                  top: `${50 + Math.sin((i * Math.PI) / 4) * 45}%`,
+                  left: `${50 + Math.cos((i * Math.PI) / 4) * 45}%`,
                   animationDelay: `${i * 0.3}s`,
-                  animationDuration: '2s',
+                  animationDuration: "2s",
                 }}
               ></div>
             ))}
           </div>
 
-          <div className="relative mb-4 xs:mb-6 sm:mb-8 md:mb-10">
-            <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold mb-3 xs:mb-4 sm:mb-6 relative">
-              <span className="bg-gradient-to-r from-emerald-200 via-cyan-200 to-blue-200 bg-clip-text text-transparent filter drop-shadow-2xl animate-pulse">
-                Welcome
+          <div className="space-y-6">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold">
+              <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                Hello, I'm
               </span>
-              <div className="absolute -inset-1 xs:-inset-2 sm:-inset-4 bg-gradient-to-r from-emerald-400/20 to-cyan-400/20 blur-xl sm:blur-2xl md:blur-3xl rounded-2xl animate-pulse"></div>
-              <div className="absolute -inset-3 xs:-inset-4 sm:-inset-6 md:-inset-8 bg-gradient-to-r from-blue-400/10 to-purple-400/10 blur-xl sm:blur-2xl rounded-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+              <br />
+              <span className="bg-gradient-to-r from-slate-800 to-slate-600 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">
+                Muralikarthick
+              </span>
             </h1>
 
-            <h2 className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-light text-slate-200 mb-2 xs:mb-3 sm:mb-4 drop-shadow-xl">
-              I'm{" "}
-              <span className="font-bold bg-gradient-to-r from-emerald-200 via-cyan-200 to-blue-200 bg-clip-text text-transparent animate-pulse">
-                Muralikarthick M
+            <div className="text-2xl sm:text-3xl md:text-4xl text-slate-600 dark:text-slate-400 font-light min-h-[3rem] flex items-center justify-center">
+              <span className="mr-2">I'm a</span>
+              <span className="bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent font-semibold">
+                {typedText}
               </span>
-            </h2>
-            
-            <div className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-emerald-300 mt-2 xs:mt-3 sm:mt-4 font-mono min-h-[2em] flex items-center justify-center px-4">
-              <span className="text-center drop-shadow-lg">{typedText}</span>
-              <span className={`ml-0.5 xs:ml-1 ${isTyping ? 'animate-pulse' : 'animate-ping'} drop-shadow-lg`}>|</span>
+              <span className={`ml-1 ${isTyping ? "animate-pulse" : "animate-ping"} text-violet-500`}>|</span>
             </div>
           </div>
         </div>
 
-        {/* Enhanced description with dramatic glass card */}
-        <GlassCard className="p-3 xs:p-4 sm:p-6 md:p-8 mb-6 xs:mb-8 sm:mb-10 md:mb-12 max-w-5xl mx-auto" glow={true}>
-          <div className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl text-slate-200 leading-relaxed font-light">
+        {/* Description */}
+        <ModernCard className="p-8 mb-12 max-w-4xl mx-auto" gradient={true}>
+          <p className="text-xl text-slate-700 dark:text-slate-300 leading-relaxed">
             A passionate{" "}
-            <span className="text-emerald-300 font-medium relative inline-block">
-              B.Tech IT student
-              <div className="absolute -bottom-0.5 xs:-bottom-1 left-0 w-full h-0.5 xs:h-1 bg-gradient-to-r from-emerald-400 to-cyan-400 shadow-lg shadow-emerald-400/50"></div>
-            </span>{" "}
-            at Kongu Engineering College, crafting innovative digital experiences with modern technologies and winning hackathons. 
-            Currently maintaining a <span className="text-cyan-300 font-semibold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">8.21 CGPA</span> while building the future, one line of code at a time.
-          </div>
-        </GlassCard>
+            <span className="font-semibold text-violet-600 dark:text-violet-400">B.Tech IT student</span> at Kongu
+            Engineering College, crafting innovative digital experiences with modern technologies. Currently maintaining
+            a <span className="font-semibold text-pink-600 dark:text-pink-400">8.21 CGPA</span> while building the
+            future, one line of code at a time.
+          </p>
+        </ModernCard>
 
-        {/* Enhanced CTA buttons with extraordinary effects - Stack on mobile, side by side on larger screens */}
-        <div className="flex flex-col xs:flex-row gap-3 xs:gap-4 sm:gap-6 justify-center items-center mb-8 xs:mb-10 sm:mb-12 md:mb-16 px-4">
+        {/* CTA Buttons */}
+        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
           <button
-            onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
-            className="group relative w-full xs:w-auto px-4 xs:px-5 sm:px-6 md:px-8 py-2.5 xs:py-3 sm:py-3.5 md:py-4 bg-gradient-to-r from-emerald-500/90 to-cyan-500/90 rounded-lg xs:rounded-xl sm:rounded-2xl text-white font-medium text-sm xs:text-base sm:text-lg transition-all duration-500 transform hover:scale-105 active:scale-95 hover:shadow-2xl hover:shadow-emerald-500/50 overflow-hidden backdrop-blur-xl border-2 border-emerald-400/30 touch-manipulation"
+            onClick={() => scrollToSection("projects")}
+            className="group relative px-8 py-4 bg-gradient-to-r from-violet-500 to-pink-500 rounded-2xl text-white font-semibold text-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-violet-500/25 overflow-hidden"
           >
-            {/* Multiple gradient overlays */}
-            <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <div className="absolute inset-0 bg-gradient-to-45deg from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-            
-            <span className="relative z-10 flex items-center justify-center">
-              <span className="mr-1.5 xs:mr-2 sm:mr-3 text-base xs:text-lg sm:text-xl animate-bounce">🚀</span>
-              <span className="drop-shadow-lg">View My Work</span>
+            <span className="relative z-10 flex items-center">
+              <span className="mr-3">🚀</span>
+              View My Work
               <svg
-                className="w-3 h-3 xs:w-4 xs:h-4 sm:w-5 sm:h-5 ml-1.5 xs:ml-2 transition-transform duration-300 group-hover:translate-x-1 group-hover:scale-110"
+                className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -579,65 +508,56 @@ const Home = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
               </svg>
             </span>
+            <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
           </button>
 
           <button
-            onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-            className="group relative w-full xs:w-auto px-4 xs:px-5 sm:px-6 md:px-8 py-2.5 xs:py-3 sm:py-3.5 md:py-4 border-2 border-emerald-300/80 rounded-lg xs:rounded-xl sm:rounded-2xl text-emerald-300 font-medium text-sm xs:text-base sm:text-lg transition-all duration-500 transform hover:scale-105 active:scale-95 hover:bg-emerald-300/20 hover:border-emerald-300 hover:shadow-2xl hover:shadow-emerald-300/30 backdrop-blur-2xl overflow-hidden touch-manipulation"
+            onClick={() => scrollToSection("contact")}
+            className="group relative px-8 py-4 border-2 border-violet-300 dark:border-violet-600 rounded-2xl text-violet-600 dark:text-violet-400 font-semibold text-lg transition-all duration-500 transform hover:scale-105 hover:bg-violet-50 dark:hover:bg-violet-900/20 hover:shadow-xl overflow-hidden"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/20 to-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <div className="absolute inset-0 bg-gradient-to-45deg from-transparent via-emerald-300/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-            
-            <span className="relative z-10 flex items-center justify-center">
-              <span className="mr-1.5 xs:mr-2 sm:mr-3 text-base xs:text-lg sm:text-xl animate-bounce" style={{animationDelay: '0.5s'}}>💬</span>
-              <span className="drop-shadow-lg">Get In Touch</span>
-              <svg
-                className="w-3 h-3 xs:w-4 xs:h-4 sm:w-5 sm:h-5 ml-1.5 xs:ml-2 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                ></path>
-              </svg>
+            <span className="relative z-10 flex items-center">
+              <span className="mr-3">💬</span>
+              Get In Touch
             </span>
           </button>
         </div>
 
-        {/* Enhanced stats with dramatic effects - better grid for small screens */}
-        <div className="grid grid-cols-3 gap-2 xs:gap-3 sm:gap-4 md:gap-6 lg:gap-8 max-w-xs xs:max-w-sm sm:max-w-md lg:max-w-lg mx-auto mb-8 xs:mb-10 sm:mb-12 md:mb-16 px-2 xs:px-4">
+        {/* Stats */}
+        <div className="grid grid-cols-3 gap-6 max-w-2xl mx-auto mb-16">
           {[
-            { number: "2+", label: "Projects", icon: "🚀", color: "from-emerald-400 to-cyan-400" },
-            { number: "8.21", label: "CGPA", icon: "🎓", color: "from-cyan-400 to-blue-400" },
-            { number: "2x", label: "Winner", icon: "🏆", color: "from-yellow-400 to-amber-400" },
+            { number: "2+", label: "Projects", icon: "🚀", color: "from-violet-500 to-purple-500" },
+            { number: "8.21", label: "CGPA", icon: "🎓", color: "from-purple-500 to-pink-500" },
+            { number: "2x", label: "Winner", icon: "🏆", color: "from-pink-500 to-rose-500" },
           ].map((stat, index) => (
-            <GlassCard key={index} className="text-center group p-2 xs:p-3 sm:p-4 md:p-6 hover:scale-105 transition-transform duration-500" glow={true}>
-              <div className={`absolute -inset-1 bg-gradient-to-r ${stat.color} rounded-2xl md:rounded-3xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
-              <div className="relative">
-                <div className="text-base xs:text-lg sm:text-xl md:text-2xl mb-0.5 xs:mb-1 sm:mb-2 animate-bounce" style={{animationDelay: `${index * 0.2}s`}}>{stat.icon}</div>
-                <div className={`text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold bg-gradient-to-r ${stat.color} bg-clip-text text-transparent mb-0.5 xs:mb-1 group-hover:scale-110 transition-transform duration-300 drop-shadow-lg`}>
-                  {stat.number}
-                </div>
-                <div className="text-xs sm:text-sm text-slate-300 drop-shadow-lg">{stat.label}</div>
+            <ModernCard key={index} className="text-center p-6 group hover:scale-105 transition-transform duration-500">
+              <div className="text-3xl mb-3 transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-12">
+                {stat.icon}
               </div>
-            </GlassCard>
+              <div className={`text-3xl font-bold bg-gradient-to-r ${stat.color} bg-clip-text text-transparent mb-2`}>
+                {stat.number}
+              </div>
+              <div className="text-sm text-slate-600 dark:text-slate-400">{stat.label}</div>
+            </ModernCard>
           ))}
         </div>
 
-        {/* Enhanced scroll indicator with glow */}
-        <div className="absolute bottom-2 xs:bottom-3 sm:bottom-4 md:bottom-6 lg:bottom-8 left-1/2 transform -translate-x-1/2">
-          <div className="flex flex-col items-center space-y-1 xs:space-y-2 sm:space-y-3 animate-bounce">
-            <GlassCard className="w-5 xs:w-6 sm:w-8 h-8 xs:h-10 sm:h-12 flex justify-center relative overflow-hidden p-0 border-2 border-emerald-400/50 shadow-xl shadow-emerald-400/30" glow={true}>
-              <div className="w-0.5 xs:w-1 h-2 xs:h-3 sm:h-4 bg-gradient-to-b from-emerald-400 to-cyan-400 rounded-full mt-1.5 xs:mt-2 animate-scroll-dot shadow-lg shadow-emerald-400/50"></div>
-            </GlassCard>
-            <span className="text-[10px] xs:text-xs text-slate-300 font-medium drop-shadow-lg">Scroll</span>
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+          <div className="flex flex-col items-center space-y-3 animate-bounce">
+            <div className="w-8 h-12 border-2 border-violet-300 dark:border-violet-600 rounded-full flex justify-center relative overflow-hidden">
+              <div className="w-1 h-4 bg-gradient-to-b from-violet-500 to-pink-500 rounded-full mt-2 animate-scroll-dot"></div>
+            </div>
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Scroll Down</span>
           </div>
         </div>
       </div>
+
+      {/* Floating Action Button */}
+      <FloatingActionButton
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        icon="↑"
+        label="Back to Top"
+      />
     </section>
   )
 }
@@ -650,7 +570,7 @@ const About = () => {
       name: "Frontend",
       icon: "⚛️",
       techs: ["HTML", "CSS", "JavaScript", "ReactJS"],
-      color: "from-emerald-400 to-cyan-400",
+      color: "from-violet-500 to-purple-500",
       description: "Creating beautiful, responsive user interfaces",
       level: 85,
     },
@@ -658,7 +578,7 @@ const About = () => {
       name: "Backend",
       icon: "🔧",
       techs: ["NodeJS", "ExpressJS", "Java", "C++"],
-      color: "from-cyan-400 to-blue-400",
+      color: "from-purple-500 to-pink-500",
       description: "Building robust server-side applications",
       level: 80,
     },
@@ -666,7 +586,7 @@ const About = () => {
       name: "Database",
       icon: "🗄️",
       techs: ["MongoDB", "MySQL", "Database Design"],
-      color: "from-blue-400 to-indigo-400",
+      color: "from-pink-500 to-rose-500",
       description: "Designing efficient data storage solutions",
       level: 75,
     },
@@ -674,188 +594,127 @@ const About = () => {
       name: "Mobile",
       icon: "📱",
       techs: ["Flutter", "Cross-platform", "UI/UX"],
-      color: "from-indigo-400 to-purple-400",
+      color: "from-rose-500 to-orange-500",
       description: "Developing cross-platform mobile applications",
       level: 70,
     },
   ]
 
   return (
-    <section ref={ref} id="about" className="min-h-screen py-12 xs:py-16 sm:py-20 relative overflow-hidden scroll-mt-16 sm:scroll-mt-20">
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-800 via-slate-900 to-emerald-900">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-900/30 via-transparent to-transparent animate-pulse"></div>
-        {/* Additional animated layers */}
-        <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 animate-pulse" style={{animationDelay: '2s'}}></div>
-        <div className="absolute inset-0 bg-gradient-to-l from-blue-500/10 to-purple-500/10 animate-pulse" style={{animationDelay: '4s'}}></div>
-      </div>
-
-      {/* Enhanced floating elements */}
-      <div className="absolute inset-0">
-        {[...Array(35)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute animate-spin-slow opacity-40"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 15}s`,
-              animationDuration: `${25 + Math.random() * 25}s`,
-            }}
-          >
-            <div
-              className="rounded-full backdrop-blur-sm border-2 border-white/20 shadow-xl"
-              style={{
-                width: `${15 + Math.random() * 25}px`,
-                height: `${15 + Math.random() * 25}px`,
-                background: `linear-gradient(45deg, hsl(${160 + Math.random() * 60}, 80%, 60%, 0.3), transparent)`,
-                filter: "blur(1px)",
-                boxShadow: `0 0 15px hsl(${160 + Math.random() * 60}, 80%, 60%, 0.5)`,
-              }}
-            ></div>
-          </div>
-        ))}
+    <section ref={ref} id="about" className="min-h-screen py-20 relative overflow-hidden scroll-mt-20">
+      <div className="absolute inset-0 bg-gradient-to-br from-violet-50 via-white to-pink-50 dark:from-violet-900/20 dark:via-slate-900 dark:to-pink-900/20">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-violet-200/30 via-transparent to-transparent dark:from-violet-800/30"></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
         <div
-          className={`text-center mb-12 sm:mb-16 transition-all duration-1000 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
+          className={`text-center mb-16 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-emerald-200 to-cyan-200 bg-clip-text text-transparent drop-shadow-2xl">
+          <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent">
             About Me
           </h2>
-          <div className="w-24 sm:w-32 h-2 bg-gradient-to-r from-emerald-400 to-cyan-400 mx-auto rounded-full relative shadow-xl shadow-emerald-400/50">
-            <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-cyan-400 rounded-full animate-pulse"></div>
-            <div className="absolute -inset-2 bg-gradient-to-r from-emerald-400/50 to-cyan-400/50 rounded-full blur-lg animate-pulse"></div>
-          </div>
+          <div className="w-32 h-1 bg-gradient-to-r from-violet-500 to-pink-500 mx-auto rounded-full"></div>
+          <p className="text-xl text-slate-600 dark:text-slate-400 mt-6 max-w-2xl mx-auto">
+            Passionate about creating digital experiences that make a difference
+          </p>
         </div>
 
         <div className="max-w-7xl mx-auto">
-          {/* Enhanced bio section */}
-          <GlassCard
-            className={`p-4 sm:p-6 md:p-8 lg:p-12 mb-8 sm:mb-12 relative group transition-all duration-1000 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-            }`}
-            glow={true}
+          {/* Bio section */}
+          <ModernCard
+            className={`p-8 mb-12 relative group transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+            gradient={true}
           >
-            <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition duration-700"></div>
-            <div className="absolute top-4 right-4 text-4xl sm:text-6xl opacity-20 group-hover:opacity-40 transition-opacity duration-300 animate-pulse">
-              🎯
+            <div className="text-xl text-slate-700 dark:text-slate-300 leading-relaxed text-center mb-8">
+              I'm a passionate{" "}
+              <span className="font-semibold text-violet-600 dark:text-violet-400">
+                B.Tech Information Technology student
+              </span>{" "}
+              at Kongu Engineering College with a CGPA of{" "}
+              <span className="font-semibold text-pink-600 dark:text-pink-400">8.21</span>. My journey in tech spans
+              across full-stack development, mobile app development, and competitive programming. I believe in crafting
+              experiences that not only look beautiful but also solve real-world problems.
             </div>
 
-            <div className="relative">
-              <div className="text-base sm:text-lg md:text-xl lg:text-2xl text-slate-200 leading-relaxed text-center font-light mb-6 sm:mb-8 drop-shadow-lg">
-                I'm a passionate{" "}
-                <span className="font-medium text-emerald-300 relative">
-                  B.Tech Information Technology student
-                  <div className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-emerald-400 to-cyan-400 shadow-lg shadow-emerald-400/50"></div>
-                </span>{" "}
-                at Kongu Engineering College with a CGPA of 8.21. My journey in tech spans across full-stack
-                development, mobile app development, and competitive programming. I believe in crafting experiences that
-                not only look beautiful but also solve real-world problems.
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <ModernCard className="p-6">
+                <h3 className="text-lg font-semibold text-violet-600 dark:text-violet-400 mb-3 flex items-center">
+                  <span className="mr-3 text-2xl">🎯</span>
+                  Career Objective
+                </h3>
+                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                  To launch my career in a progressive organization where I can leverage my skills, experience, and
+                  creativity for mutual growth and success.
+                </p>
+              </ModernCard>
 
-              {/* Enhanced sections grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-                <GlassCard className="p-4 sm:p-6 hover:scale-105 transition-transform duration-500" glow={true}>
-                  <h3 className="text-base sm:text-lg font-semibold text-emerald-300 mb-2 sm:mb-3 flex items-center drop-shadow-lg">
-                    <span className="mr-2 text-lg sm:text-xl animate-bounce">🎯</span>
-                    Career Objective
-                  </h3>
-                  <p className="text-slate-300 leading-relaxed text-sm sm:text-base drop-shadow-sm">
-                    To launch my career in a progressive organization where I can leverage my skills, experience, and
-                    creativity for mutual growth and success.
-                  </p>
-                </GlassCard>
-
-                <GlassCard className="p-4 sm:p-6 hover:scale-105 transition-transform duration-500" glow={true}>
-                  <h3 className="text-base sm:text-lg font-semibold text-cyan-300 mb-2 sm:mb-3 flex items-center drop-shadow-lg">
-                    <span className="mr-2 text-lg sm:text-xl animate-bounce" style={{animationDelay: '0.5s'}}>🎮</span>
-                    Hobbies & Interests
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {["Playing Cricket", "Listening Music", "Coding", "Problem Solving"].map((hobby, index) => (
-                      <span
-                        key={index}
-                        className="bg-gradient-to-r from-white/20 to-white/10 text-slate-300 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm border-2 border-white/30 backdrop-blur-xl hover:bg-gradient-to-r hover:from-emerald-400/20 hover:to-cyan-400/20 hover:border-emerald-400/50 hover:scale-110 transition-all duration-300 shadow-lg shadow-emerald-400/20"
-                      >
-                        {hobby}
-                      </span>
-                    ))}
-                  </div>
-                </GlassCard>
-              </div>
+              <ModernCard className="p-6">
+                <h3 className="text-lg font-semibold text-pink-600 dark:text-pink-400 mb-3 flex items-center">
+                  <span className="mr-3 text-2xl">🎨</span>
+                  Interests & Hobbies
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {["Playing Cricket", "Listening Music", "Coding", "Problem Solving"].map((hobby, index) => (
+                    <span
+                      key={index}
+                      className="bg-gradient-to-r from-violet-100 to-pink-100 dark:from-violet-900/30 dark:to-pink-900/30 text-slate-700 dark:text-slate-300 px-3 py-1 rounded-full text-sm border border-violet-200 dark:border-violet-700 hover:scale-110 transition-all duration-300"
+                    >
+                      {hobby}
+                    </span>
+                  ))}
+                </div>
+              </ModernCard>
             </div>
-          </GlassCard>
+          </ModernCard>
 
-          {/* Enhanced skills grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+          {/* Skills grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {skills.map((skill, index) => (
-              <GlassCard
+              <ModernCard
                 key={skill.name}
-                className={`p-3 sm:p-4 md:p-6 relative group transition-all duration-700 transform hover:scale-110 hover:-translate-y-4 ${
+                className={`p-6 relative group transition-all duration-700 transform hover:scale-105 hover:-translate-y-2 ${
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
                 }`}
-                style={{
-                  animationDelay: `${index * 200}ms`,
-                  transitionDelay: `${index * 100}ms`,
-                }}
-                glow={true}
+                style={{ animationDelay: `${index * 200}ms` }}
               >
-                <div
-                  className={`absolute -inset-1 bg-gradient-to-r ${skill.color.replace(
-                    "400",
-                    "500/30"
-                  )} rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition duration-500`}
-                ></div>
-
-                {/* Enhanced skill percentage indicator */}
-                <div className="absolute top-3 right-3">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-white/20 to-white/10 flex items-center justify-center text-xs text-slate-200 backdrop-blur-xl border-2 border-white/30 shadow-lg shadow-emerald-400/30">
-                    {skill.level}%
-                  </div>
-                </div>
-
-                <div className="relative text-center">
-                  <div className="text-3xl sm:text-4xl md:text-5xl mb-3 sm:mb-4 transform transition-all duration-500 group-hover:scale-125 group-hover:rotate-12 drop-shadow-xl">
+                <div className="text-center">
+                  <div className="text-4xl mb-4 transform transition-all duration-500 group-hover:scale-125 group-hover:rotate-12">
                     {skill.icon}
                   </div>
 
                   <h3
-                    className={`text-base sm:text-lg md:text-xl font-bold mb-1 sm:mb-2 bg-gradient-to-r ${skill.color} bg-clip-text text-transparent drop-shadow-lg`}
+                    className={`text-xl font-bold mb-2 bg-gradient-to-r ${skill.color} bg-clip-text text-transparent`}
                   >
                     {skill.name}
                   </h3>
 
-                  <p className="text-xs text-slate-400 mb-3 sm:mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-sm">
+                  <p className="text-sm text-slate-500 dark:text-slate-400 mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     {skill.description}
                   </p>
 
-                  <div className="space-y-1 sm:space-y-2">
+                  <div className="space-y-2 mb-4">
                     {skill.techs.map((tech, techIndex) => (
                       <div
                         key={tech}
-                        className="backdrop-blur-xl bg-gradient-to-r from-white/15 to-white/5 rounded-full px-2 sm:px-3 py-1 text-xs sm:text-sm text-slate-300 border border-white/20 transform transition-all duration-300 hover:scale-110 hover:bg-gradient-to-r hover:from-emerald-400/20 hover:to-cyan-400/20 hover:border-emerald-400/50 relative overflow-hidden group/tech shadow-lg shadow-emerald-400/20"
+                        className="bg-gradient-to-r from-slate-100 to-slate-50 dark:from-slate-800 dark:to-slate-700 rounded-full px-3 py-1 text-sm text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-600 transform transition-all duration-300 hover:scale-105"
                       >
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover/tech:translate-x-[100%] transition-transform duration-500"></div>
                         {tech}
                       </div>
                     ))}
                   </div>
-                </div>
 
-                {/* Enhanced skill level indicator */}
-                <div className="mt-3 sm:mt-4 w-full bg-white/20 rounded-full h-2 sm:h-3 overflow-hidden backdrop-blur-xl border border-white/30 shadow-inner">
-                  <div
-                    className={`h-full bg-gradient-to-r ${skill.color} rounded-full transition-all duration-1500 delay-300 relative overflow-hidden shadow-lg`}
-                    style={{ width: isVisible ? `${skill.level}%` : "0%" }}
-                  >
-                    <div className="absolute inset-0 bg-white/30 animate-pulse"></div>
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-pulse" style={{animationDelay: '1s'}}></div>
+                  {/* Progress bar */}
+                  <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2 overflow-hidden">
+                    <div
+                      className={`h-full bg-gradient-to-r ${skill.color} rounded-full transition-all duration-1500 delay-300 relative overflow-hidden`}
+                      style={{ width: isVisible ? `${skill.level}%` : "0%" }}
+                    >
+                      <div className="absolute inset-0 bg-white/30 animate-pulse"></div>
+                    </div>
                   </div>
+                  <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">{skill.level}%</div>
                 </div>
-              </GlassCard>
+              </ModernCard>
             ))}
           </div>
         </div>
@@ -874,7 +733,7 @@ const Education = () => {
       period: "2022 - 2026",
       grade: "CGPA: 8.21",
       icon: "🎓",
-      color: "from-emerald-400 to-cyan-400",
+      color: "from-violet-500 to-purple-500",
       description: "Specializing in Full-stack Development, Database Management, and Software Engineering",
       achievements: ["1st Prize in CSD Hackathon 2024", "1st Prize in IT Hackathon 2024", "Active in technical clubs"],
     },
@@ -884,7 +743,7 @@ const Education = () => {
       period: "2020 - 2022",
       grade: "Percentage: 92.7%",
       icon: "📚",
-      color: "from-cyan-400 to-blue-400",
+      color: "from-purple-500 to-pink-500",
       description: "Focused on Mathematics, Physics, and Computer Science",
       achievements: ["Top performer in Computer Science", "Active in school tech events"],
     },
@@ -894,110 +753,85 @@ const Education = () => {
       period: "2019 - 2020",
       grade: "Percentage: 99.4%",
       icon: "🏆",
-      color: "from-blue-400 to-indigo-400",
+      color: "from-pink-500 to-rose-500",
       description: "Excellent academic performance across all subjects",
       achievements: ["School topper", "Outstanding academic achievement award"],
     },
   ]
 
   return (
-    <section ref={ref} id="education" className="min-h-screen py-12 xs:py-16 sm:py-20 relative overflow-hidden scroll-mt-16 sm:scroll-mt-20">
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-emerald-900/50 to-slate-900">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-emerald-900/20 via-transparent to-transparent"></div>
+    <section ref={ref} id="education" className="min-h-screen py-20 relative overflow-hidden scroll-mt-20">
+      <div className="absolute inset-0 bg-gradient-to-br from-pink-50 via-white to-violet-50 dark:from-pink-900/20 dark:via-slate-900 dark:to-violet-900/20">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-200/30 via-transparent to-transparent dark:from-purple-800/30"></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
         <div
-          className={`text-center mb-12 sm:mb-16 transition-all duration-1000 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
+          className={`text-center mb-16 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-emerald-200 to-cyan-200 bg-clip-text text-transparent">
+          <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
             Education
           </h2>
-          <div className="w-24 sm:w-32 h-1 bg-gradient-to-r from-emerald-400 to-cyan-400 mx-auto rounded-full relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-cyan-400 rounded-full animate-pulse"></div>
-          </div>
-          <p className="text-lg sm:text-xl text-slate-300 mt-4 sm:mt-6">My academic journey and achievements</p>
+          <div className="w-32 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full"></div>
+          <p className="text-xl text-slate-600 dark:text-slate-400 mt-6">My academic journey and achievements</p>
         </div>
 
         <div className="max-w-5xl mx-auto">
-          {/* Enhanced Timeline with better mobile layout */}
           <div className="relative">
-            {/* Timeline line - hidden on smallest screens */}
-            <div className="absolute left-4 xs:left-8 md:left-1/2 transform md:-translate-x-1/2 w-0.5 xs:w-1 h-full bg-gradient-to-b from-emerald-400 via-cyan-400 to-blue-400 rounded-full backdrop-blur-xl hidden xs:block"></div>
+            {/* Timeline line */}
+            <div className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 w-1 h-full bg-gradient-to-b from-violet-400 via-purple-400 to-pink-400 rounded-full hidden sm:block"></div>
 
             {education.map((edu, index) => (
               <div
                 key={index}
-                className={`relative flex flex-col xs:flex-row items-start xs:items-center mb-10 xs:mb-16 ${
+                className={`relative flex flex-col md:flex-row items-start md:items-center mb-16 ${
                   index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                } transition-all duration-1000 ${
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-                }`}
+                } transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
                 style={{ animationDelay: `${index * 300}ms` }}
               >
-                {/* Enhanced timeline dot */}
-                <div className="hidden xs:block absolute left-8 md:left-1/2 transform md:-translate-x-1/2 w-4 xs:w-5 sm:w-6 h-4 xs:h-5 sm:h-6 bg-gradient-to-r from-emerald-400 to-cyan-400 rounded-full border-2 xs:border-3 sm:border-4 border-slate-900 z-10 backdrop-blur-xl">
-                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-cyan-400 rounded-full animate-ping opacity-75"></div>
-                  <div className="absolute inset-1 bg-white/20 rounded-full animate-pulse"></div>
+                {/* Timeline dot */}
+                <div className="hidden sm:block absolute left-8 md:left-1/2 transform md:-translate-x-1/2 w-6 h-6 bg-gradient-to-r from-violet-400 to-pink-400 rounded-full border-4 border-white dark:border-slate-900 z-10 shadow-lg">
+                  <div className="absolute inset-0 bg-gradient-to-r from-violet-400 to-pink-400 rounded-full animate-ping opacity-75"></div>
                 </div>
 
-                {/* Enhanced content card */}
-                <div
-                  className={`w-full xs:ml-16 md:ml-0 md:w-5/12 ${
-                    index % 2 === 0 ? "md:mr-auto md:pr-4 sm:md:pr-8" : "md:ml-auto md:pl-4 sm:md:pl-8"
-                  }`}
-                >
-                  <GlassCard className="p-3 xs:p-4 sm:p-6 md:p-8 group transform hover:scale-[1.03] transition-all duration-500">
-                    <div
-                      className={`absolute -inset-0.5 bg-gradient-to-r ${edu.color.replace(
-                        "400",
-                        "500/10"
-                      )} rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition duration-500`}
-                    ></div>
-
-                    <div className="relative">
-                      {/* Icon and period */}
-                      <div className="flex items-center justify-between mb-4">
-                        <div className="text-3xl sm:text-4xl">{edu.icon}</div>
-                        <span className="text-xs sm:text-sm text-slate-400 bg-white/10 px-3 py-1 rounded-full backdrop-blur-xl border border-white/20">
-                          {edu.period}
-                        </span>
-                      </div>
-
-                      {/* Degree and institution */}
-                      <h3
-                        className={`text-xl sm:text-2xl font-bold mb-2 bg-gradient-to-r ${edu.color} bg-clip-text text-transparent`}
-                      >
-                        {edu.degree}
-                      </h3>
-                      <h4 className="text-base sm:text-lg text-slate-300 mb-3">{edu.institution}</h4>
-
-                      {/* Grade */}
-                      <div className="mb-4">
-                        <span className="inline-block bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 text-emerald-300 px-4 py-2 rounded-full text-sm font-semibold border border-emerald-500/30 backdrop-blur-xl">
-                          {edu.grade}
-                        </span>
-                      </div>
-
-                      {/* Description */}
-                      <p className="text-slate-400 mb-4 leading-relaxed text-sm sm:text-base">{edu.description}</p>
-
-                      {/* Achievements */}
-                      <div>
-                        <h5 className="text-sm font-semibold text-slate-300 mb-2">Key Achievements:</h5>
-                        <ul className="space-y-1">
-                          {edu.achievements.map((achievement, achIndex) => (
-                            <li key={achIndex} className="text-xs sm:text-sm text-slate-400 flex items-center">
-                              <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full mr-2 flex-shrink-0"></span>
-                              {achievement}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                <div className={`w-full md:w-5/12 ${index % 2 === 0 ? "md:mr-auto md:pr-8" : "md:ml-auto md:pl-8"}`}>
+                  <ModernCard className="p-8 group transform hover:scale-[1.02] transition-all duration-500" gradient={true}>
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="text-4xl">{edu.icon}</div>
+                      <span className="text-sm text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full">
+                        {edu.period}
+                      </span>
                     </div>
-                  </GlassCard>
+
+                    <h3
+                      className={`text-2xl font-bold mb-2 bg-gradient-to-r ${edu.color} bg-clip-text text-transparent`}
+                    >
+                      {edu.degree}
+                    </h3>
+                    <h4 className="text-lg text-slate-600 dark:text-slate-400 mb-4">{edu.institution}</h4>
+
+                    <div className="mb-4">
+                      <span className="inline-block bg-gradient-to-r from-violet-100 to-pink-100 dark:from-violet-900/30 dark:to-pink-900/30 text-violet-700 dark:text-violet-300 px-4 py-2 rounded-full text-sm font-semibold border border-violet-200 dark:border-violet-700">
+                        {edu.grade}
+                      </span>
+                    </div>
+
+                    <p className="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">{edu.description}</p>
+
+                    <div>
+                      <h5 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">
+                        🏆 Key Achievements:
+                      </h5>
+                      <ul className="space-y-2">
+                        {edu.achievements.map((achievement, achIndex) => (
+                          <li key={achIndex} className="text-sm text-slate-600 dark:text-slate-400 flex items-center">
+                            <span className="w-2 h-2 bg-gradient-to-r from-violet-400 to-pink-400 rounded-full mr-3 flex-shrink-0"></span>
+                            {achievement}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </ModernCard>
                 </div>
               </div>
             ))}
@@ -1020,7 +854,7 @@ const Projects = () => {
       github: "https://github.com/murali55525",
       tags: ["Flutter", "JavaScript", "NodeJS", "MongoDB"],
       emoji: "📚",
-      gradient: "from-emerald-500/70 via-cyan-500/70 to-blue-500/70",
+      gradient: "from-violet-500/80 via-purple-500/80 to-pink-500/80",
       image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500&h=300&fit=crop",
       status: "Completed",
       features: ["Real-time collaboration", "Query resolution", "Resource sharing", "User authentication"],
@@ -1032,7 +866,7 @@ const Projects = () => {
       github: "https://github.com/murali55525",
       tags: ["HTML", "CSS", "Bootstrap", "JavaScript", "3DVista VR"],
       emoji: "🥽",
-      gradient: "from-purple-500/70 via-pink-500/70 to-red-500/70",
+      gradient: "from-pink-500/80 via-rose-500/80 to-orange-500/80",
       image: "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=500&h=300&fit=crop",
       status: "Live",
       features: ["360° navigation", "Interactive hotspots", "Virtual tour", "Responsive design"],
@@ -1040,86 +874,73 @@ const Projects = () => {
   ]
 
   return (
-    <section ref={ref} id="projects" className="min-h-screen py-12 xs:py-16 sm:py-20 relative overflow-hidden scroll-mt-16 sm:scroll-mt-20">
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-900">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-900/20 via-transparent to-transparent"></div>
+    <section ref={ref} id="projects" className="min-h-screen py-20 relative overflow-hidden scroll-mt-20">
+      <div className="absolute inset-0 bg-gradient-to-br from-rose-50 via-white to-orange-50 dark:from-rose-900/20 dark:via-slate-900 dark:to-orange-900/20">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-pink-200/30 via-transparent to-transparent dark:from-pink-800/30"></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
         <div
-          className={`text-center mb-12 sm:mb-16 transition-all duration-1000 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
+          className={`text-center mb-16 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-cyan-200 to-emerald-200 bg-clip-text text-transparent">
+          <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-rose-600 to-orange-600 bg-clip-text text-transparent">
             My Projects
           </h2>
-          <div className="w-24 sm:w-32 h-1 bg-gradient-to-r from-cyan-400 to-emerald-400 mx-auto rounded-full relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-emerald-400 rounded-full animate-pulse"></div>
-          </div>
-          <p className="text-lg sm:text-xl text-slate-300 mt-4 sm:mt-6 max-w-2xl mx-auto">
+          <div className="w-32 h-1 bg-gradient-to-r from-rose-500 to-orange-500 mx-auto rounded-full"></div>
+          <p className="text-xl text-slate-600 dark:text-slate-400 mt-6 max-w-2xl mx-auto">
             Showcasing my journey through innovative solutions and technical excellence
           </p>
         </div>
 
         <div
-          className={`grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 max-w-7xl mx-auto transition-all duration-1000 ${
-            isVisible ? "opacity-100" : "opacity-0"
-          }`}
+          className={`grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto transition-all duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
         >
           {projects.map((project, index) => (
-            <GlassCard
+            <ModernCard
               key={index}
-              className={`overflow-hidden group transform hover:scale-105 hover:-translate-y-4 transition-all duration-700 ${
+              className={`overflow-hidden group transform hover:scale-105 hover:-translate-y-2 transition-all duration-700 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
               }`}
               onMouseEnter={() => setHoveredProject(index)}
               onMouseLeave={() => setHoveredProject(null)}
-              style={{
-                animationDelay: `${index * 200}ms`,
-                transitionDelay: `${index * 100}ms`,
-              }}
+              style={{ animationDelay: `${index * 200}ms` }}
             >
-              {/* Enhanced gradient overlay */}
-              <div
-                className={`absolute -inset-0.5 bg-gradient-to-r ${project.gradient} rounded-3xl blur-xl opacity-0 group-hover:opacity-60 transition duration-700`}
-              ></div>
-
-              {/* Project image with enhanced parallax effect */}
-              <div className="relative h-48 sm:h-64 overflow-hidden">
+              {/* Project image */}
+              <div className="relative h-64 overflow-hidden">
                 <div
                   className="absolute inset-0 bg-cover bg-center transform transition-transform duration-700 group-hover:scale-110"
                   style={{ backgroundImage: `url(${project.image})` }}
                 ></div>
-                <div className={`absolute inset-0 bg-gradient-to-t ${project.gradient} opacity-40`}></div>
+                <div className={`absolute inset-0 bg-gradient-to-t ${project.gradient} opacity-60`}></div>
 
                 {/* Status badge */}
                 <div className="absolute top-4 left-4">
                   <span
                     className={`px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-xl border ${
                       project.status === "Live"
-                        ? "bg-green-500/20 text-green-300 border-green-500/30"
-                        : "bg-blue-500/20 text-blue-300 border-blue-500/30"
+                        ? "bg-green-100/80 text-green-700 border-green-200 dark:bg-green-900/30 dark:text-green-300 dark:border-green-700"
+                        : "bg-blue-100/80 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-700"
                     }`}
                   >
                     {project.status}
                   </span>
                 </div>
 
-                <div className="absolute top-4 right-4 text-3xl sm:text-4xl transform transition-all duration-500 group-hover:scale-125 group-hover:rotate-12">
+                <div className="absolute bottom-4 left-4 text-4xl transform transition-all duration-500 group-hover:scale-125 group-hover:rotate-12">
                   {project.emoji}
                 </div>
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-4 sm:p-6">
-                  <div className="flex flex-wrap gap-2 sm:gap-3">
+                {/* Action buttons overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
+                  <div className="flex gap-3">
                     {project.link !== "#" && (
                       <a
                         href={project.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="bg-white/10 backdrop-blur-xl text-white px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium hover:bg-white/20 transition-colors duration-300 flex items-center border border-white/20"
+                        className="bg-white/20 backdrop-blur-xl text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-white/30 transition-colors duration-300 flex items-center border border-white/30"
                       >
-                        <svg className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -1127,17 +948,16 @@ const Projects = () => {
                             d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
                           ></path>
                         </svg>
-                        <span className="hidden sm:inline">Live Demo</span>
-                        <span className="sm:hidden">Demo</span>
+                        Live Demo
                       </a>
                     )}
                     <a
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="bg-white/10 backdrop-blur-xl text-white px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium hover:bg-white/20 transition-colors duration-300 flex items-center border border-white/20"
+                      className="bg-white/20 backdrop-blur-xl text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-white/30 transition-colors duration-300 flex items-center border border-white/30"
                     >
-                      <svg className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" fill="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
                         <path
                           fillRule="evenodd"
                           d="M12 0C5.37 0 0 5.37 0 12c0 5.303 3.438 9.8 8.207 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.807 1.305 3.492.998.108-.775.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.215 0 1.605-.015 2.895-.015 3.285 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"
@@ -1149,107 +969,102 @@ const Projects = () => {
                 </div>
               </div>
 
-              <div className="relative p-4 sm:p-6 lg:p-8">
-                <h3 className="text-xl sm:text-2xl font-bold mb-3 text-slate-200 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-cyan-300 group-hover:to-emerald-300 group-hover:bg-clip-text transition-all duration-500">
+              <div className="relative p-8">
+                <h3 className="text-2xl font-bold mb-3 text-slate-800 dark:text-slate-200 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-violet-600 group-hover:to-pink-600 group-hover:bg-clip-text transition-all duration-500">
                   {project.name}
                 </h3>
 
-                <p className="text-slate-300 mb-4 leading-relaxed text-sm sm:text-base group-hover:text-slate-200 transition-colors duration-300">
+                <p className="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors duration-300">
                   {project.desc}
                 </p>
 
                 {/* Features */}
-                <div className="mb-4 sm:mb-6">
-                  <h4 className="text-sm font-semibold text-slate-300 mb-2">Key Features:</h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <div className="mb-6">
+                  <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">✨ Key Features:</h4>
+                  <div className="grid grid-cols-2 gap-2">
                     {project.features.map((feature, featureIndex) => (
-                      <div key={featureIndex} className="flex items-center text-xs text-slate-400">
-                        <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full mr-2 flex-shrink-0"></span>
+                      <div key={featureIndex} className="flex items-center text-sm text-slate-600 dark:text-slate-400">
+                        <span className="w-2 h-2 bg-gradient-to-r from-violet-400 to-pink-400 rounded-full mr-2 flex-shrink-0"></span>
                         {feature}
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="flex flex-wrap gap-2 mb-4 sm:mb-6">
+                {/* Tech stack */}
+                <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag, tagIndex) => (
                     <span
                       key={tag}
-                      className="backdrop-blur-xl bg-white/10 text-slate-300 px-3 py-1 rounded-full text-xs font-medium border border-white/20 transform transition-all duration-300 hover:scale-105 hover:bg-white/15"
+                      className="bg-gradient-to-r from-violet-100 to-pink-100 dark:from-violet-900/30 dark:to-pink-900/30 text-slate-700 dark:text-slate-300 px-3 py-1 rounded-full text-sm border border-violet-200 dark:border-violet-700 transform transition-all duration-300 hover:scale-105"
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
               </div>
-            </GlassCard>
+            </ModernCard>
           ))}
         </div>
 
-        {/* Enhanced Internship Section */}
+        {/* Internship Section */}
         <div
-          className={`mt-20 transition-all duration-1000 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
+          className={`mt-20 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
         >
-          <h3 className="text-3xl sm:text-4xl font-bold text-center mb-12 sm:mb-16 bg-gradient-to-r from-emerald-300 to-cyan-300 bg-clip-text text-transparent">
+          <h3 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent">
             Professional Experience
           </h3>
 
           <div className="max-w-5xl mx-auto">
-            <GlassCard className="p-6 sm:p-8 group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-600/20 to-cyan-600/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition duration-500"></div>
+            <ModernCard className="p-8 group" gradient={true}>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6">
+                <div className="flex items-center mb-4 sm:mb-0">
+                  <div className="text-4xl mr-4">💼</div>
+                  <div>
+                    <h4 className="text-2xl font-bold text-violet-600 dark:text-violet-400">Web Development Intern</h4>
+                    <p className="text-lg text-slate-600 dark:text-slate-400">Codsoft (Remote)</p>
+                  </div>
+                </div>
+                <span className="text-sm text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full">
+                  Aug 1-31, 2024
+                </span>
+              </div>
 
-              <div className="relative">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6">
-                  <div className="flex items-center mb-4 sm:mb-0">
-                    <div className="text-3xl sm:text-4xl mr-4">💼</div>
-                    <div>
-                      <h4 className="text-xl sm:text-2xl font-bold text-emerald-300">Web Development Intern</h4>
-                      <p className="text-base sm:text-lg text-slate-300">Codsoft (Remote)</p>
-                    </div>
-                                   </div>
-                  <span className="text-sm text-slate-400 bg-white/10 px-3 py-1 rounded-full backdrop-blur-xl border border-white/20">
-                    Aug 1-31, 2024
-                  </span>
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h5 className="text-lg font-semibold text-slate-700 dark:text-slate-300 mb-4">📋 Responsibilities:</h5>
+                  <ul className="space-y-3">
+                    {[
+                      "Learnt and developed websites from front-end to back-end",
+                      "Built and optimized interactive UI components",
+                      "Enhanced user experience through modern design",
+                      "Collaborated with team on various projects",
+                    ].map((item, index) => (
+                      <li key={index} className="text-slate-600 dark:text-slate-400 flex items-start">
+                        <span className="w-2 h-2 bg-gradient-to-r from-violet-400 to-pink-400 rounded-full mr-3 mt-2 flex-shrink-0"></span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <h5 className="text-lg font-semibold text-slate-300 mb-3">Responsibilities:</h5>
-                    <ul className="space-y-2">
-                      {[
-                        "Learnt and developed websites from front-end to back-end",
-                        "Built and optimized interactive UI components",
-                        "Enhanced user experience through modern design",
-                        "Collaborated with team on various projects",
-                      ].map((item, index) => (
-                        <li key={index} className="text-slate-400 flex items-start text-sm sm:text-base">
-                          <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full mr-3 mt-2 flex-shrink-0"></span>
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h5 className="text-lg font-semibold text-slate-300 mb-3">Technologies Used:</h5>
-                    <div className="flex flex-wrap gap-2">
-                      {["HTML", "CSS", "JavaScript", "Bootstrap", "NodeJS", "Full-stack Development"].map(
-                        (tech, index) => (
-                          <span
-                            key={index}
-                            className="bg-white/10 text-slate-300 px-3 py-1 rounded-full text-sm border border-white/20 backdrop-blur-xl hover:bg-white/15 transition-all duration-300"
-                          >
-                            {tech}
-                          </span>
-                        )
-                      )}
-                    </div>
+                <div>
+                  <h5 className="text-lg font-semibold text-slate-700 dark:text-slate-300 mb-4">🛠️ Technologies Used:</h5>
+                  <div className="flex flex-wrap gap-2">
+                    {["HTML", "CSS", "JavaScript", "Bootstrap", "NodeJS", "Full-stack Development"].map(
+                      (tech, index) => (
+                        <span
+                          key={index}
+                          className="bg-gradient-to-r from-violet-100 to-pink-100 dark:from-violet-900/30 dark:to-pink-900/30 text-slate-700 dark:text-slate-300 px-3 py-1 rounded-full text-sm border border-violet-200 dark:border-violet-700 hover:scale-105 transition-all duration-300"
+                        >
+                          {tech}
+                        </span>
+                      ),
+                    )}
                   </div>
                 </div>
               </div>
-            </GlassCard>
+            </ModernCard>
           </div>
         </div>
       </div>
@@ -1298,7 +1113,7 @@ const Stats = () => {
       title: "Academic Excellence",
       desc: "Maintaining 8.21 CGPA in B.Tech IT",
       icon: "🎓",
-      color: "from-emerald-400 to-cyan-400",
+      color: "from-violet-400 to-purple-400",
       count: "8.21 CGPA",
     },
     {
@@ -1312,133 +1127,135 @@ const Stats = () => {
       title: "Project Builder",
       desc: "Built innovative solutions",
       icon: "🚀",
-      color: "from-purple-400 to-pink-400",
+      color: "from-pink-400 to-rose-400",
       count: "2+ Projects",
     },
   ]
 
   return (
-    <section ref={ref} id="stats" className="min-h-screen py-12 xs:py-16 sm:py-20 relative overflow-hidden scroll-mt-16 sm:scroll-mt-20">
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-emerald-900/50 to-slate-900">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-emerald-900/20 via-transparent to-transparent"></div>
+    <section ref={ref} id="stats" className="min-h-screen py-20 relative overflow-hidden scroll-mt-20">
+      <div className="absolute inset-0 bg-gradient-to-br from-orange-50 via-white to-yellow-50 dark:from-orange-900/20 dark:via-slate-900 dark:to-yellow-900/20">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-orange-200/30 via-transparent to-transparent dark:from-orange-800/30"></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
         <div
-          className={`text-center mb-12 sm:mb-16 transition-all duration-1000 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
+          className={`text-center mb-16 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-emerald-300 to-cyan-300 bg-clip-text text-transparent">
+          <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-orange-600 to-yellow-600 bg-clip-text text-transparent">
             My Journey
           </h2>
-          <div className="w-24 sm:w-32 h-1 bg-gradient-to-r from-emerald-400 to-cyan-400 mx-auto rounded-full relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-cyan-400 rounded-full animate-pulse"></div>
-          </div>
-          <p className="text-lg sm:text-xl text-slate-300 mt-4 sm:mt-6">Numbers that define my academic and technical journey</p>
+          <div className="w-32 h-1 bg-gradient-to-r from-orange-500 to-yellow-500 mx-auto rounded-full"></div>
+          <p className="text-xl text-slate-600 dark:text-slate-400 mt-6">Numbers that define my academic and technical journey</p>
         </div>
 
-        {/* Enhanced Main Stats Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 max-w-5xl mx-auto mb-12 sm:mb-16">
+        {/* Main Stats Grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto mb-16">
           {[
             {
               label: "Projects Completed",
               value: animatedStats.projects || 0,
               icon: "🚀",
-              color: "from-emerald-400 to-cyan-400",
+              color: "from-violet-500 to-purple-500",
+              maxValue: 10,
             },
-            { label: "Current CGPA", value: animatedStats.cgpa || 0, icon: "🎓", color: "from-cyan-400 to-blue-400" },
+            {
+              label: "Current CGPA",
+              value: animatedStats.cgpa || 0,
+              icon: "🎯",
+              color: "from-purple-500 to-pink-500",
+              maxValue: 10,
+            },
             {
               label: "Hackathons Won",
               value: animatedStats.hackathons || 0,
               icon: "🏆",
-              color: "from-yellow-400 to-amber-400",
+              color: "from-pink-500 to-rose-500",
+              maxValue: 5,
             },
             {
               label: "Technologies",
               value: animatedStats.technologies || 0,
-              icon: "💻",
-              color: "from-purple-400 to-pink-400",
+              icon: "⚡",
+              color: "from-rose-500 to-orange-500",
+              maxValue: 20,
             },
           ].map((stat, index) => (
-            <GlassCard
+            <ModernCard
               key={index}
-              className={`p-4 sm:p-6 text-center group transform hover:scale-105 hover:-translate-y-2 transition-all duration-500 ${
+              className={`p-6 text-center group transform hover:scale-105 hover:-translate-y-2 transition-all duration-500 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
               }`}
               style={{ animationDelay: `${index * 200}ms` }}
             >
-              <div
-                className={`absolute -inset-0.5 bg-gradient-to-r ${stat.color.replace(
-                  "400",
-                  "500/10"
-                )} rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition duration-500`}
-              ></div>
-
               <div className="relative">
-                <div className="text-3xl sm:text-4xl mb-4 transform transition-all duration-500 group-hover:scale-125 group-hover:rotate-12">
+                <div className="text-4xl mb-4 transform transition-all duration-500 group-hover:scale-125 group-hover:rotate-12">
                   {stat.icon}
                 </div>
 
-                <div
-                  className={`text-2xl sm:text-3xl md:text-4xl font-bold mb-2 bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}
-                >
+                <div className={`text-3xl font-bold mb-2 bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}>
                   {stat.value}
                 </div>
 
-                <p className="text-xs sm:text-sm text-slate-400 group-hover:text-slate-300 transition-colors duration-300">
+                <p className="text-sm text-slate-600 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors duration-300 mb-4">
                   {stat.label}
                 </p>
+
+                {/* Progress bar */}
+                <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2 overflow-hidden">
+                  <div
+                    className={`h-full bg-gradient-to-r ${stat.color} rounded-full transition-all duration-1000 relative overflow-hidden`}
+                    style={{ width: `${(stat.value / stat.maxValue) * 100}%` }}
+                  >
+                    <div className="absolute inset-0 bg-white/30 animate-pulse"></div>
+                  </div>
+                </div>
               </div>
-            </GlassCard>
+            </ModernCard>
           ))}
         </div>
 
-        {/* Enhanced achievements section */}
+        {/* Achievements section */}
         <div className="max-w-7xl mx-auto">
           <h3
-            className={`text-3xl sm:text-4xl font-bold text-center mb-12 sm:mb-16 bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent transition-all duration-1000 ${
+            className={`text-4xl font-bold text-center mb-16 bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent transition-all duration-1000 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             }`}
           >
             Achievements & Milestones
           </h3>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {achievements.map((achievement, index) => (
-              <GlassCard
+              <ModernCard
                 key={index}
-                className={`p-4 sm:p-6 text-center group transform hover:scale-110 hover:-translate-y-4 transition-all duration-500 ${
+                className={`p-6 text-center group transform hover:scale-105 hover:-translate-y-2 transition-all duration-500 ${
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
                 }`}
                 style={{ animationDelay: `${index * 200}ms` }}
               >
-                <div
-                  className={`absolute -inset-0.5 bg-gradient-to-r ${achievement.color} rounded-2xl blur-xl opacity-0 group-hover:opacity-60 transition duration-500`}
-                ></div>
-
                 {/* Achievement count */}
-                <div className="absolute top-3 right-3 bg-white/10 rounded-full px-2 py-1 text-xs font-bold text-white backdrop-blur-xl border border-white/20">
+                <div className="absolute top-3 right-3 bg-slate-100 dark:bg-slate-800 rounded-full px-2 py-1 text-xs font-bold text-slate-700 dark:text-slate-300">
                   {achievement.count}
                 </div>
 
                 <div className="relative">
-                  <div className="text-4xl sm:text-5xl mb-4 transform transition-all duration-500 group-hover:scale-125 group-hover:rotate-12">
+                  <div className="text-5xl mb-4 transform transition-all duration-500 group-hover:scale-125 group-hover:rotate-12">
                     {achievement.icon}
                   </div>
 
                   <h4
-                    className={`text-base sm:text-lg font-bold mb-2 bg-gradient-to-r ${achievement.color} bg-clip-text text-transparent`}
+                    className={`text-lg font-bold mb-2 bg-gradient-to-r ${achievement.color} bg-clip-text text-transparent`}
                   >
                     {achievement.title}
                   </h4>
 
-                  <p className="text-white/70 text-xs sm:text-sm group-hover:text-white/90 transition-colors duration-300">
+                  <p className="text-slate-600 dark:text-slate-400 text-sm group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors duration-300 mb-4">
                     {achievement.desc}
                   </p>
 
                   {/* Progress indicator */}
-                  <div className="mt-4 w-full bg-white/10 rounded-full h-1 backdrop-blur-xl">
+                  <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-1">
                     <div
                       className={`h-full bg-gradient-to-r ${achievement.color} rounded-full transition-all duration-1000 relative overflow-hidden`}
                       style={{ width: isVisible ? "100%" : "0%", transitionDelay: `${index * 200}ms` }}
@@ -1447,7 +1264,7 @@ const Stats = () => {
                     </div>
                   </div>
                 </div>
-              </GlassCard>
+              </ModernCard>
             ))}
           </div>
         </div>
@@ -1464,7 +1281,6 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
-
     // Simulate form submission
     setTimeout(() => {
       setIsSubmitting(false)
@@ -1478,62 +1294,64 @@ const Contact = () => {
   }
 
   return (
-    <section id="contact" className="min-h-screen py-12 xs:py-16 sm:py-20 relative overflow-hidden scroll-mt-16 sm:scroll-mt-20">
-      <div className="absolute inset-0 bg-gradient-to-br from-emerald-900 via-cyan-900 to-blue-900"></div>
+    <section id="contact" className="min-h-screen py-20 relative overflow-hidden scroll-mt-20">
+      <div className="absolute inset-0 bg-gradient-to-br from-violet-100 via-white to-pink-100 dark:from-violet-900/30 dark:via-slate-900 dark:to-pink-900/30">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-200/40 via-transparent to-transparent dark:from-purple-800/40"></div>
+      </div>
 
-      {/* Enhanced floating contact icons */}
+      {/* Floating contact icons */}
       <div className="absolute inset-0">
-        {["📧", "📱", "💬", "🌐", "💼", "🎯"].map((emoji, i) => (
+        {["📧", "📱", "💬", "🌐", "💼", "🎯", "✨", "🚀"].map((emoji, i) => (
           <div
             key={i}
             className="absolute animate-float opacity-10"
             style={{
-              left: `${15 + (i * 15)}%`,
-              top: `${10 + (i * 12)}%`,
-              animationDelay: `${i * 1.5}s`,
-              animationDuration: `${6 + i}s`,
+              left: `${10 + i * 12}%`,
+              top: `${5 + i * 11}%`,
+              animationDelay: `${i * 1.2}s`,
+              animationDuration: `${8 + i}s`,
             }}
           >
-            <div className="text-4xl sm:text-6xl">{emoji}</div>
+            <div className="text-4xl">{emoji}</div>
           </div>
         ))}
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+        <div className="text-center mb-16">
+          <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent">
             Let's Connect
-
           </h2>
-          <div className="w-20 sm:w-24 h-1 bg-gradient-to-r from-emerald-400 to-cyan-400 mx-auto rounded-full"></div>
-          <p className="text-base sm:text-lg md:text-xl text-white/70 mt-4 sm:mt-6 max-w-2xl mx-auto px-4">
+          <div className="w-32 h-1 bg-gradient-to-r from-violet-500 to-pink-500 mx-auto rounded-full"></div>
+          <p className="text-xl text-slate-600 dark:text-slate-400 mt-6 max-w-2xl mx-auto">
             Ready to collaborate on exciting projects? Let's create something amazing together!
           </p>
         </div>
 
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12">
-          {/* Enhanced Contact Form */}
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Contact Form */}
           <div className="relative">
-            <GlassCard className="p-4 sm:p-6 md:p-8 group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-600/20 to-cyan-600/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition duration-500"></div>
-
+            <ModernCard className="p-8 group" gradient={true}>
               <div className="relative">
-                <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-6 text-white">Send Me a Message</h3>
+                <h3 className="text-2xl font-bold mb-6 text-slate-800 dark:text-slate-200 flex items-center">
+                  <span className="mr-3 text-2xl">💬</span>
+                  Send Me a Message
+                </h3>
 
                 {submitted ? (
-                  <div className="text-center py-8 sm:py-12">
-                    <div className="text-4xl sm:text-5xl md:text-6xl mb-3 sm:mb-4 animate-bounce">🎉</div>
-                    <h4 className="text-base sm:text-lg md:text-xl font-bold text-green-400 mb-1 sm:mb-2">Message Sent!</h4>
-                    <p className="text-white/70 text-sm sm:text-base">Thanks for reaching out. I'll get back to you soon!</p>
+                  <div className="text-center py-12">
+                    <div className="text-6xl mb-4 animate-bounce">🎉</div>
+                    <h4 className="text-xl font-bold text-green-600 dark:text-green-400 mb-2">Message Sent!</h4>
+                    <p className="text-slate-600 dark:text-slate-400 mb-6">Thanks for reaching out. I'll get back to you soon!</p>
                     <button
                       onClick={() => setSubmitted(false)}
-                      className="mt-4 sm:mt-6 bg-gradient-to-r from-emerald-600 to-cyan-600 text-white px-4 sm:px-6 py-2 rounded-full hover:scale-105 transition-all duration-300 text-sm sm:text-base"
+                      className="bg-gradient-to-r from-violet-500 to-pink-500 text-white px-6 py-2 rounded-full hover:scale-105 transition-all duration-300"
                     >
                       Send Another Message
                     </button>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+                  <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="relative group">
                       <input
                         type="text"
@@ -1542,9 +1360,8 @@ const Contact = () => {
                         onChange={handleChange}
                         placeholder="Your Name"
                         required
-                        className="w-full bg-white/5 border border-white/20 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 text-white placeholder-white/50 focus:border-emerald-400 focus:bg-white/10 transition-all duration-300 focus:outline-none backdrop-blur-xl text-sm sm:text-base"
+                        className="w-full bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-800 dark:text-slate-200 placeholder-slate-500 dark:placeholder-slate-400 focus:border-violet-400 focus:bg-white/70 dark:focus:bg-slate-800/70 transition-all duration-300 focus:outline-none backdrop-blur-xl"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/10 to-cyan-600/10 rounded-lg sm:rounded-xl opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 -z-10"></div>
                     </div>
 
                     <div className="relative group">
@@ -1555,9 +1372,8 @@ const Contact = () => {
                         onChange={handleChange}
                         placeholder="Your Email"
                         required
-                        className="w-full bg-white/5 border border-white/20 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 text-white placeholder-white/50 focus:border-emerald-400 focus:bg-white/10 transition-all duration-300 focus:outline-none backdrop-blur-xl text-sm sm:text-base"
+                        className="w-full bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-800 dark:text-slate-200 placeholder-slate-500 dark:placeholder-slate-400 focus:border-violet-400 focus:bg-white/70 dark:focus:bg-slate-800/70 transition-all duration-300 focus:outline-none backdrop-blur-xl"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/10 to-cyan-600/10 rounded-lg sm:rounded-xl opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 -z-10"></div>
                     </div>
 
                     <div className="relative group">
@@ -1568,27 +1384,26 @@ const Contact = () => {
                         placeholder="Your Message"
                         rows="5"
                         required
-                        className="w-full bg-white/5 border border-white/20 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 text-white placeholder-white/50 focus:border-emerald-400 focus:bg-white/10 transition-all duration-300 focus:outline-none resize-none backdrop-blur-xl text-sm sm:text-base"
+                        className="w-full bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-800 dark:text-slate-200 placeholder-slate-500 dark:placeholder-slate-400 focus:border-violet-400 focus:bg-white/70 dark:focus:bg-slate-800/70 transition-all duration-300 focus:outline-none resize-none backdrop-blur-xl"
                       ></textarea>
-                      <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/10 to-cyan-600/10 rounded-lg sm:rounded-xl opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 -z-10"></div>
                     </div>
 
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-gradient-to-r from-emerald-600 to-cyan-600 text-white py-3 sm:py-4 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-xl border border-emerald-500/20 text-sm sm:text-base"
+                      className="w-full bg-gradient-to-r from-violet-500 to-pink-500 text-white py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <span className="relative z-10 flex items-center justify-center">
                         {isSubmitting ? (
                           <>
-                            <div className="animate-spin rounded-full h-4 w-4 sm:h-5 sm:w-5 border-b-2 border-white mr-2"></div>
+                            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
                             Sending...
                           </>
                         ) : (
                           <>
                             Send Message
                             <svg
-                              className="w-4 h-4 sm:w-5 sm:h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1"
+                              className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1"
                               fill="none"
                               stroke="currentColor"
                               viewBox="0 0 24 24"
@@ -1603,25 +1418,24 @@ const Contact = () => {
                           </>
                         )}
                       </span>
-                      <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                      <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
                     </button>
                   </form>
                 )}
               </div>
-            </GlassCard>
+            </ModernCard>
           </div>
 
-          {/* Enhanced Contact Info */}
-          <div className="space-y-4 sm:space-y-6 md:space-y-8">
-            <GlassCard className="p-4 sm:p-6 md:p-8 group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-600/20 to-blue-600/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition duration-500"></div>
-
+          {/* Contact Info */}
+          <div className="space-y-8">
+            <ModernCard className="p-8 group" gradient={true}>
               <div className="relative">
-                <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent flex items-center">
+                  <span className="mr-3 text-2xl">📡</span>
                   Get In Touch
                 </h3>
 
-                <div className="space-y-3 sm:space-y-4 md:space-y-6">
+                <div className="space-y-6">
                   {[
                     {
                       icon: "📧",
@@ -1629,18 +1443,28 @@ const Contact = () => {
                       value: "m.muralikarthick123@gmail.com",
                       href: "mailto:m.muralikarthick123@gmail.com",
                     },
-                    { icon: "📱", label: "Phone", value: "+91-7339044489", href: "tel:+917339044489" },
-                    { icon: "📍", label: "Location", value: "Tamil Nadu, India", href: "#" },
+                    {
+                      icon: "📱",
+                      label: "Phone",
+                      value: "+91-7339044489",
+                      href: "tel:+917339044489",
+                    },
+                    {
+                      icon: "📍",
+                      label: "Location",
+                      value: "Tamil Nadu, India",
+                      href: "#",
+                    },
                   ].map((item, index) => (
                     <a
                       key={index}
                       href={item.href}
-                      className="flex items-center space-x-3 sm:space-x-4 p-3 sm:p-4 rounded-lg sm:rounded-xl bg-white/5 hover:bg-white/10 transition-all duration-300 transform hover:scale-105 group/item backdrop-blur-xl border border-white/10"
+                      className="flex items-center space-x-4 p-4 rounded-xl bg-white/30 dark:bg-slate-800/30 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-300 transform hover:scale-105 group/item backdrop-blur-xl border border-white/20 dark:border-slate-700/50"
                     >
-                      <div className="text-lg sm:text-xl md:text-2xl">{item.icon}</div>
+                      <div className="text-2xl">{item.icon}</div>
                       <div className="min-w-0 flex-1">
-                        <p className="text-white/70 text-xs sm:text-sm">{item.label}</p>
-                        <p className="text-white font-medium group-hover/item:text-cyan-400 transition-colors duration-300 text-sm sm:text-base truncate">
+                        <p className="text-slate-600 dark:text-slate-400 text-sm">{item.label}</p>
+                        <p className="text-slate-800 dark:text-slate-200 font-medium group-hover/item:text-violet-600 dark:group-hover/item:text-violet-400 transition-colors duration-300 truncate">
                           {item.value}
                         </p>
                       </div>
@@ -1648,50 +1472,54 @@ const Contact = () => {
                   ))}
                 </div>
               </div>
-            </GlassCard>
+            </ModernCard>
 
-            {/* Enhanced Social Links */}
-            <GlassCard className="p-4 sm:p-6 md:p-8 group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-green-600/20 to-emerald-600/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition duration-500"></div>
-
+            {/* Social Links */}
+            <ModernCard className="p-8 group" gradient={true}>
               <div className="relative">
-                <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+                <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent flex items-center">
+                  <span className="mr-3 text-2xl">🌐</span>
                   Follow Me
                 </h3>
 
-                <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4">
+                <div className="grid grid-cols-2 gap-4">
                   {[
                     {
                       name: "GitHub",
                       icon: "🐙",
                       href: "https://github.com/murali55525",
-                      color: "hover:text-purple-400",
+                      color: "hover:text-purple-600 dark:hover:text-purple-400",
                     },
                     {
                       name: "LinkedIn",
                       icon: "💼",
                       href: "https://linkedin.com/in/murali-karthick-8ab38a259/",
-                      color: "hover:text-blue-400",
+                      color: "hover:text-blue-600 dark:hover:text-blue-400",
                     },
                     {
                       name: "Email",
                       icon: "📧",
                       href: "mailto:m.muralikarthick123@gmail.com",
-                      color: "hover:text-emerald-400",
+                      color: "hover:text-green-600 dark:hover:text-green-400",
                     },
-                    { name: "Phone", icon: "📱", href: "tel:+917339044489", color: "hover:text-cyan-400" },
+                    {
+                      name: "Phone",
+                      icon: "📱",
+                      href: "tel:+917339044489",
+                      color: "hover:text-pink-600 dark:hover:text-pink-400",
+                    },
                   ].map((social, index) => (
                     <a
                       key={social.name}
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`flex items-center space-x-2 sm:space-x-3 p-2.5 sm:p-3 md:p-4 rounded-lg sm:rounded-xl bg-white/5 hover:bg-white/10 transition-all duration-300 transform hover:scale-105 ${social.color} group/social backdrop-blur-xl border border-white/10`}
+                      className={`flex flex-col items-center space-y-2 p-4 rounded-xl bg-white/30 dark:bg-slate-800/30 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-300 transform hover:scale-105 ${social.color} group/social backdrop-blur-xl border border-white/20 dark:border-slate-700/50`}
                     >
-                      <div className="text-lg sm:text-xl md:text-2xl">{social.icon}</div>
-                      <span className="font-medium text-sm sm:text-base">{social.name}</span>
+                      <div className="text-2xl">{social.icon}</div>
+                      <span className="font-medium text-sm">{social.name}</span>
                       <svg
-                        className="w-3 h-3 sm:w-4 sm:h-4 ml-auto transition-transform duration-300 group-hover/social:translate-x-1"
+                        className="w-4 h-4 opacity-0 group-hover/social:opacity-100 transition-opacity duration-300"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -1707,7 +1535,7 @@ const Contact = () => {
                   ))}
                 </div>
               </div>
-            </GlassCard>
+            </ModernCard>
           </div>
         </div>
       </div>
@@ -1719,62 +1547,62 @@ const Footer = () => {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="relative bg-black/30 backdrop-blur-2xl border-t border-white/10 py-12">
-      <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/20 to-cyan-900/20"></div>
+    <footer className="relative bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl border-t border-slate-200/50 dark:border-slate-700/50 py-12">
+      <div className="absolute inset-0 bg-gradient-to-r from-violet-100/30 to-pink-100/30 dark:from-violet-900/30 dark:to-pink-900/30"></div>
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center">
           <div className="mb-8">
-            <h3 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent mb-2">
+            <h3 className="text-3xl font-bold bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent mb-2">
               Muralikarthick's Portfolio
             </h3>
-            <p className="text-white/60 text-sm sm:text-base">Building the future, one line of code at a time</p>
+            <p className="text-slate-600 dark:text-slate-400">Building the future, one line of code at a time</p>
           </div>
 
           {/* Quick Links */}
-          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 mb-8">
+          <div className="flex flex-wrap justify-center gap-6 mb-8">
             {["Home", "About", "Education", "Projects", "Stats", "Contact"].map((item) => (
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="text-white/70 hover:text-white hover:scale-105 transition-all duration-300 text-sm sm:text-base"
+                className="text-slate-600 dark:text-slate-400 hover:text-violet-600 dark:hover:text-violet-400 hover:scale-105 transition-all duration-300"
               >
                 {item}
               </a>
             ))}
           </div>
 
-          {/* Enhanced Social Links */}
-          <div className="flex justify-center space-x-4 sm:space-x-6 mb-8">
+          {/* Social Links */}
+          <div className="flex justify-center space-x-6 mb-8">
             {[
               {
                 name: "GitHub",
                 href: "https://github.com/murali55525",
                 icon: (
-                  <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                     <path
                       fillRule="evenodd"
                       d="M12 0C5.37 0 0 5.37 0 12c0 5.303 3.438 9.8 8.207 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.807 1.305 3.492.998.108-.775.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.215 0 1.605-.015 2.895-.015 3.285 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"
                     />
                   </svg>
                 ),
-                color: "hover:text-purple-400",
+                color: "hover:text-purple-600 dark:hover:text-purple-400",
               },
               {
                 name: "LinkedIn",
                 href: "https://linkedin.com/in/murali-karthick-8ab38a259/",
                 icon: (
-                  <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M19 0H5C2.239 0 0 2.239 0 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5V5c0-2.761-2.238-5-5-5zM8 19H5V8h3v11zM6.5 6.732c-0.966 0-1.75-0.79-1.75-1.764s0.784-1.764 1.75-1.764 1.75 0.79 1.75 1.764-0.784 1.764-1.75 1.764zM20 19h-3v-5.604c0-3.368-4-3.113-4 0V19h-3V8h3v1.765c1.396-2.586 7-2.777 7 2.476V19z" />
                   </svg>
                 ),
-                color: "hover:text-blue-400",
+                color: "hover:text-blue-600 dark:hover:text-blue-400",
               },
               {
                 name: "Email",
                 href: "mailto:m.muralikarthick123@gmail.com",
                 icon: (
-                  <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -1783,7 +1611,7 @@ const Footer = () => {
                     />
                   </svg>
                 ),
-                color: "hover:text-emerald-400",
+                color: "hover:text-green-600 dark:hover:text-green-400",
               },
             ].map((social, index) => (
               <a
@@ -1791,11 +1619,11 @@ const Footer = () => {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`text-white/60 ${social.color} transition-all duration-300 transform hover:scale-125 hover:-translate-y-1 relative group p-2 rounded-xl backdrop-blur-xl bg-white/5 border border-white/10 hover:bg-white/10`}
+                className={`text-slate-500 dark:text-slate-400 ${social.color} transition-all duration-300 transform hover:scale-125 hover:-translate-y-1 relative group p-3 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-slate-200/50 dark:border-slate-700/50 hover:bg-white/70 dark:hover:bg-slate-800/70`}
                 aria-label={social.name}
               >
                 {social.icon}
-                <span className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap backdrop-blur-xl border border-white/20">
+                <span className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
                   {social.name}
                 </span>
               </a>
@@ -1803,9 +1631,13 @@ const Footer = () => {
           </div>
 
           {/* Copyright */}
-          <div className="border-t border-white/10 pt-8">
-            <p className="text-white/50 text-sm">© {currentYear} Muralikarthick M. All rights reserved.</p>
-            <p className="text-white/40 text-xs mt-2">Made with ❤️ using React & Tailwind CSS</p>
+          <div className="border-t border-slate-200/50 dark:border-slate-700/50 pt-8">
+            <p className="text-slate-500 dark:text-slate-400 text-sm mb-2">
+              © {currentYear} Muralikarthick M. All rights reserved.
+            </p>
+            <p className="text-slate-400 dark:text-slate-500 text-xs flex items-center justify-center">
+              Made with ❤️ using React & Tailwind CSS
+            </p>
           </div>
         </div>
       </div>
@@ -1815,51 +1647,46 @@ const Footer = () => {
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true)
-  
-  // Add simple preloading effect
+
   useEffect(() => {
-    // Simulate loading assets
-    const timer = setTimeout(() => setIsLoading(false), 800)
+    const timer = setTimeout(() => setIsLoading(false), 1500)
     return () => clearTimeout(timer)
   }, [])
-  
-  // Add touch event improvements
+
   useEffect(() => {
-    document.documentElement.style.cssText = 'touch-action: manipulation;'
-    
-    // Force redraw on orientation change for better mobile experience
+    document.documentElement.style.cssText = "touch-action: manipulation;"
+
     const handleOrientationChange = () => {
-      document.body.style.display = 'none'
-      setTimeout(() => document.body.style.display = '', 0)
+      document.body.style.display = "none"
+      setTimeout(() => (document.body.style.display = ""), 0)
     }
-    
-    window.addEventListener('orientationchange', handleOrientationChange)
-    return () => window.removeEventListener('orientationchange', handleOrientationChange)
+
+    window.addEventListener("orientationchange", handleOrientationChange)
+    return () => window.removeEventListener("orientationchange", handleOrientationChange)
   }, [])
-  
-  // Add CSS variable for viewport height to handle mobile browser chrome issues
+
   useEffect(() => {
     const setVh = () => {
       const vh = window.innerHeight * 0.01
-      document.documentElement.style.setProperty('--vh', `${vh}px`)
+      document.documentElement.style.setProperty("--vh", `${vh}px`)
     }
-    
+
     setVh()
-    window.addEventListener('resize', setVh)
-    return () => window.removeEventListener('resize', setVh)
+    window.addEventListener("resize", setVh)
+    return () => window.removeEventListener("resize", setVh)
   }, [])
 
   if (isLoading) {
     return (
-      <div className="fixed inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-900 flex items-center justify-center">
-        <LoadingSpinner />
+      <div className="fixed inset-0 bg-gradient-to-br from-violet-50 via-white to-pink-50 dark:from-violet-900 dark:via-slate-900 dark:to-pink-900 flex items-center justify-center">
+        <ModernLoadingSpinner />
       </div>
     )
   }
 
   return (
-    <div className="relative min-h-screen w-full overflow-x-hidden" style={{ minHeight: 'calc(var(--vh, 1vh) * 100)' }}>
-      <FloatingParticles />
+    <div className="relative min-h-screen w-full overflow-x-hidden" style={{ minHeight: "calc(var(--vh, 1vh) * 100)" }}>
+      <ModernParticles />
       <Navbar />
       <Home />
       <About />
